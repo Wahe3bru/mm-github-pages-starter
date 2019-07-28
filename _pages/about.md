@@ -3,6 +3,11 @@ permalink: /about/
 title: "About"
 ---
 
-Tempor velit sint sunt ipsum tempor enim ad qui ullamco. Est dolore anim ad velit duis dolore minim sunt aliquip amet commodo labore. Ut eu pariatur aute ea aute excepteur laborum. Esse ea esse excepteur minim mollit qui cillum excepteur ex dolore magna. Labore deserunt fugiat incididunt incididunt sint ea. Consequat dolore aute laboris quis proident quis non et est consectetur ex eiusmod sit culpa.
+I am a life long learner. The world is a big and interesting place. I find too many things interesting in particular humans, and their interactions.
 
-Cupidatat ea do et in excepteur in. Ad nostrud ut est esse eu duis ea sunt eiusmod. Aliquip tempor veniam sint elit fugiat. Velit incididunt laboris amet incididunt labore dolore irure velit excepteur commodo deserunt laborum. Consectetur eu fugiat veniam veniam Lorem labore magna eiusmod. Ea occaecat reprehenderit pariatur consectetur minim labore ut aliquip.
+I had a science focussed background in high school which composed of mainly formulas and algorithms, except for Biology. That was the only subject that I had to right essays. I had to piece systems together to understand the whole. Everything came so easy to me with regards to systems.
+When I switched from Computer Engineering to a Psychology and Sociology major - I never shy away from things i have little experience/exposure, I was definitely a fish out of water. I learned so much more from the experience, complimentary to the academic education.
+
+I am creative, creative problem solving is **the only** successful approach in finding solutions to novel problems without mentors.
+
+more to follow...  
