@@ -60,9 +60,9 @@ author:
   avatar : "/assets/images/bio-photo.jpg"
   bio    : "A life long learner with a curiosity with the world around"
   links:
-    - label: "Website"
+    - label: "What am I currently doing?"
       icon: "fas fa-fw fa-link"
-      url: "https://www.wahe3bru.github.io"
+      url: "https://wahe3bru.github.io/currently_doing/"
     - label: "Twitter"
       icon: "fab fa-fw fa-twitter-square"
       url: "https://twitter.com/wahe3bru"
