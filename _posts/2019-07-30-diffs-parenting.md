@@ -1,5 +1,5 @@
 ---
-title: "Blog: Reboot"
+title: "Parenting diffs"
 last_modified_at: 2019-07-28T16:20:02-05:00
 categories:
   - thoughts
