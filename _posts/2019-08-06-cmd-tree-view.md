@@ -5,15 +5,15 @@ categories:
   - blog
 tags:
   - terminal
-  header:
-    overlay_color: "#000"
-    overlay_filter: "0.5"
-    overlay_image: /assets/images/2b-cmd_tree_censord.PNG
-    actions:
-      - label: "Download"
-        url: "https://github.com/mmistakes/minimal-mistakes/"
-    caption: "Photo credit: [**Unsplash**](https://unsplash.com)"
-  excerpt: "Bacon ipsum dolor sit amet salami ham hock ham, hamburger corned beef short ribs kielbasa biltong t-bone drumstick tri-tip tail sirloin pork chop."
+header:
+  overlay_color: "#000"
+  overlay_filter: "0.5"
+  overlay_image: /assets/images/2b-cmd_tree_censord.PNG
+  actions:
+    - label: "Download"
+      url: "https://github.com/mmistakes/minimal-mistakes/"
+  caption: "Photo credit: [**Unsplash**](https://unsplash.com)"
+excerpt: "I have gotten used to using git-bash on my work pc as I use bash on both my Mac and Raspi's."
 ---
 
 I have gotten used to using git-bash on my work pc as I use bash on both my Mac and Raspi's.
