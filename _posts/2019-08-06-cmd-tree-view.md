@@ -8,11 +8,7 @@ tags:
 header:
   overlay_color: "#000"
   overlay_filter: "0.5"
-  overlay_image: /assets/images/2b-cmd_tree_censord.PNG
-  actions:
-    - label: "Download"
-      url: "https://github.com/mmistakes/minimal-mistakes/"
-  caption: "Photo credit: [**Unsplash**](https://unsplash.com)"
+  overlay_image: /assets/images/2b-cmd_tree_censord.PNG 
 excerpt: "I have gotten used to using git-bash on my work pc as I use bash on both my Mac and Raspi's."
 ---
 
