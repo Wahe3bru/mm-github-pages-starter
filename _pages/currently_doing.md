@@ -1,6 +1,6 @@
 ---
 permalink: /currently_doing/
-title: "What I am currently doing"
+title: "What I'm currently doing"
 ---
 
 ## So what's currently got my attention?
