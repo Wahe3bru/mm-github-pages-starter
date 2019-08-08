@@ -5,6 +5,11 @@ categories:
   - thoughts
 tags:
   - thoughts
+  header:
+    overlay_color: "#000"
+    overlay_filter: "0.5"
+    overlay_image: https://www.instagram.com/p/B0dUD_ug3nP/
+  excerpt: "neighborhood patrol giving A-okay"
 ---
 
 My wife and I have different parenting styles and our interaction with our kids are slightly different.
