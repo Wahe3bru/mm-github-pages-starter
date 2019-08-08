@@ -60,9 +60,9 @@ author:
   avatar : "/assets/images/bio-photo.jpg"
   bio    : "A life long learner with a curiosity with the world around"
   links:
-    - label: "What am I currently doing?"
+    - label: "linkedin"
       icon: "fas fa-fw fa-link"
-      url: "https://wahe3bru.github.io/currently_doing/"
+      url: "https://za.linkedin.com/in/waheeb-agherdien"
     - label: "Twitter"
       icon: "fab fa-fw fa-twitter-square"
       url: "https://twitter.com/wahe3bru"
