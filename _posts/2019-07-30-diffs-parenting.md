@@ -5,8 +5,9 @@ categories:
   - thoughts
 tags:
   - thoughts
+header:
+  image: https://source.unsplash.com/O-RKu3Aqnsw/1280x900
 ---
-
 My wife and I have different parenting styles and our interaction with our kids are slightly different.
 
 Yesterday we both spent time with them separately and how we went about it sums up
