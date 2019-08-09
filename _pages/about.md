@@ -9,5 +9,5 @@ I had a science focussed background in high school which composed of mainly form
 When I switched from Computer Engineering to a Psychology and Sociology major - I never shy away from things i have little experience/exposure, I was definitely a fish out of water. I learned so much more from the experience, complimentary to the academic education.
 
 I am creative, creative problem solving is **the only** successful approach in finding solutions to novel problems without mentors.
-
+<br> I am an only child. In a society where the first other only child's I met were at UCT - it's viewed with sympathy but I see it as a definite positive. I can view things with an objectivity 
 more to follow...  
