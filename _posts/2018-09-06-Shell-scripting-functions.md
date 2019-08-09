@@ -5,6 +5,8 @@ categories:
   - blog
 tags:
   - bash
+header:
+  image: https://source.unsplash.com/ieic5Tq8YMk/1280x900
 ---
 
 Functions are just mini scripts that can be executed within a script. Therefore, a function can call another function provided that they are defined before execution.

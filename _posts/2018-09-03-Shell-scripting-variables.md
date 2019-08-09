@@ -5,6 +5,8 @@ categories:
   - blog
 tags:
   - bash
+header:
+  image: https://source.unsplash.com/ieic5Tq8YMk/1280x900
 ---
 
 In order to be more proficient I decided to learn some basic shell scripting. In learning [versioning, using Git](#) I learned some basic [command line/terminal](#) and discovered the efficiency and utility in using terminal/command line. This, combined with raspberry pi tinkering led to me exploring shell scripting.<br>
