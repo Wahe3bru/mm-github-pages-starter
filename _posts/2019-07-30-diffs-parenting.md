@@ -6,7 +6,7 @@ categories:
 tags:
   - thoughts
 header:
-  image: https://source.unsplash.com/O-RKu3Aqnsw/1280x900
+  image: https://source.unsplash.com/O-RKu3Aqnsw/1024x720
 ---
 My wife and I have different parenting styles and our interaction with our kids are slightly different.
 
