@@ -2,7 +2,7 @@
 title: "Blog: Reboot"
 last_modified_at: 2019-07-26T16:20:02-05:00
 categories:
-  - Blog
+  - blog
   - thoughts
 tags:
   - thoughts
