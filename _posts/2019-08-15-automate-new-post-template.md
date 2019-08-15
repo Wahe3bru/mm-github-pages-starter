@@ -7,6 +7,7 @@ tags:
   - python
   - notes
   - tutorial
+  classes: wide
 header:
   image: https://source.unsplash.com/collection/8375052/1024x720
 ---
