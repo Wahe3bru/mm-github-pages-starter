@@ -19,5 +19,7 @@ tags:
   - Jupyter
   - notes
   - tutorial
+header:
+  image: https://source.unsplash.com/collection/8375052/1024x720
 ---
 ''')
