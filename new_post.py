@@ -3,7 +3,6 @@ from datetime import datetime
 from pathlib import Path
 import sys
 
-Path()
 title = sys.argv[1]
 date_string = datetime.now().strftime("%Y-%m-%d")
 filename = date_string + "-" + "-".join(title.lower().split(" ")) + ".md"
