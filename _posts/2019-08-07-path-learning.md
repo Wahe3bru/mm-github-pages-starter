@@ -6,6 +6,9 @@ categories:
 tags:
   - python
   - pandas
+classes: wide
+header:
+  image: https://unsplash.com/photos/J3JMyXWQHXU/720X480
 ---
 
 The key to learning new things is to quickly put what you've learned into practice.
@@ -60,4 +63,4 @@ for sheet in xcells:
 It could use another iteration, delete unused numpy import, cleanup the function.<br>
 I'm a bit pedantic like that. <br>I explained the code to an interested colleague, but the 'anonymized' numbers in the excel sheets were the actual result/value.
 
-PS. I left on time 
+PS. I left on time
