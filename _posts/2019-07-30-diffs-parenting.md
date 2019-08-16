@@ -5,6 +5,7 @@ categories:
   - thoughts
 tags:
   - thoughts
+classes: wide
 header:
   image: https://source.unsplash.com/O-RKu3Aqnsw/1024x720
 ---

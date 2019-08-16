@@ -6,6 +6,7 @@ categories:
   - thoughts
 tags:
   - thoughts
+classes: wide
 ---
 
 ## Reboot

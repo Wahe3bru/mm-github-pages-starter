@@ -6,6 +6,7 @@ categories:
 tags:
   - python
   - pandas
+classes: wide
 ---
 
 In  a project I am working on, I was taking the logs of work done and predicting

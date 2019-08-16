@@ -8,6 +8,7 @@ tags:
   - Jupyter
   - notes
   - tutorial
+classes: wide
 ---
 
 Best practice when working with Python is to use environments.

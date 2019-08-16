@@ -5,6 +5,7 @@ categories:
   - blog
 tags:
   - python
+classes: wide
 ---
 ### Nobody:
 ### Me: 'So a couple people were wondering how I got into programing...'
