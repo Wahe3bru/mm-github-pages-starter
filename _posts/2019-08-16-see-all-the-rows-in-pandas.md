@@ -32,9 +32,9 @@ def print_full(df):
 It sets the options to display all the rows then resets it back to default.
 
 I came across a better solution:
+ temporarily display 999 rows
 ```Python
-# temporarily display 999 rows
 with pd.option_context('display.max_rows', 999):
   print(df)
 ```
-The option values are restored automatically when you exit the `with` block. 
+The option values are restored automatically when you exit the `with` block.
