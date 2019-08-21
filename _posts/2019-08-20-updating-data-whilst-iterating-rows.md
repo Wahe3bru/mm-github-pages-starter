@@ -20,8 +20,10 @@ The problem I came across was that the `DueDate` column was not datetime type.
 hmmm... <br>
 the same SQL query with the dates changed read the 3 date columns as datetimes.
 luckily I used the [view all rows trick](/_posts/2019-08-16-see-all-the-rows-in-pandas.md) to look for non-date type strings (as the column type was 'Object')
+
 !['found the culprit'](/assets/images/datecolzeros.PNG)
-turns out between rows 908 and 986 the datetime was set to zeros - must have been a problem with the system they used.
+
+Turns out between rows 908 and 986 the datetime was set to zeros - must have been a problem with the system they used.
 
 So how to go about fixing it?
 
@@ -32,9 +34,9 @@ These were deprecated:
 - `pd.DateFrame.ix`
 These are possibe methods
 - `pd.DataFrame.loc`
-but the recommendation was to use `pd.DataFrame.at`
+but the _recommendation_ was to use `pd.DataFrame.at`
 
-Using this knowledge, this is how i solved my problem:
+Using this knowledge, this is how I solved my problem:
 ```python
 from pandas.api.types import is_datetime64_any_dtype as is_datetime
 
