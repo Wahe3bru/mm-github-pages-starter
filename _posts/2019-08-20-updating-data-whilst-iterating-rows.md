@@ -19,8 +19,8 @@ After initial development I used the 7th month as a validation set.
 The problem I came across was that the `DueDate` column was not datetime type.
 hmmm... <br>
 the same SQL query with the dates changed read the 3 date columns as datetimes.
-luckily I used the [view all rows trick](_posts/2019-08-16-see-all-the-rows-in-pandas.md) to look for non-date type strings (as the column type was 'Object')
-!['found the culprit'](assets/images/datecolzeros.PNG)
+luckily I used the [view all rows trick](/_posts/2019-08-16-see-all-the-rows-in-pandas.md) to look for non-date type strings (as the column type was 'Object')
+!['found the culprit'](/assets/images/datecolzeros.PNG)
 turns out between rows 908 and 986 the datetime was set to zeros - must have been a problem with the system they used.
 
 So how to go about fixing it?
@@ -70,4 +70,4 @@ def no_negative_hours_due(hours):
     return hours
 ```
 It could probably be done in a lambda but I am writing functions for documentation - to help others who have to look at the code
-as well as to assist in practicing unit tests using `pytest`. 
+as well as to assist in practicing unit tests using `pytest`.
