@@ -7,4 +7,4 @@ entries_layout: grid
 classes: wide
 ---
 
-Sample document listing for the collection `_portfolio`.
+This will be where some of my projects will be shown, along with better write ups explaining the code and the decisions made.
