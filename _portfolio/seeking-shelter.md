@@ -1,0 +1,40 @@
+---
+title: "Webscraping; information gathering from public government site"
+excerpt: "my first contribution to open source"
+header:
+  image: /assets/images/unsplash-gallery-image-1.jpg
+  teaser: assets/images/unsplash-gallery-image-1-th.jpg
+sidebar:
+  - title: "Role"
+    image: http://placehold.it/350x250
+    image_alt: "logo"
+    text: "Data Scientist"
+  - title: "Responsibilities"
+    text: "public information should be easily available"
+gallery:
+  - url: /assets/images/unsplash-gallery-image-1.jpg
+    image_path: assets/images/unsplash-gallery-image-1-th.jpg
+    alt: "placeholder image 1"
+  - url: /assets/images/unsplash-gallery-image-2.jpg
+    image_path: assets/images/unsplash-gallery-image-2-th.jpg
+    alt: "placeholder image 2"
+  - url: /assets/images/unsplash-gallery-image-3.jpg
+    image_path: assets/images/unsplash-gallery-image-3-th.jpg
+    alt: "placeholder image 3"
+---
+
+background
+For Madiba day [Codebridge]() held an hack for social good whereby intitutions or individuals could describe their problems or project and hackers could team up and assist. I joined the team offering my data wrangling/cleaning skills but their was not much data to start with.
+{Project goals go here}
+The guy next to was a Ruby programmer and he learned to scrape the South African Police Service website to obtain the name and geolocation of each police station in South Africa. I was super impressed that he learned to that in one day! Ruby is similar to python so figured that webscraping was on my list of skills to learn so why not bump it up the list - for a good cause. Having a goal always makes learning something new more interesting and worthwhile.
+It took me a Sunday night to get the basics down so I could scrape all the clinic data from the South African Social welfare site.
+
+{% include gallery caption="This is a sample gallery to go along with this case study." %}
+
+scraping clinic data
+
+
+scraping the court room data
+The official website offers a pdf of all the information of the various courts across South Africa.
+Unfortunately the quality was not good and the presentation of the data made it harder to extract relevant information.<br>
+After struggling to extract data from four different tools I decided that it was best to extract the data from the official website. Only problem was that this website used Ajax/Javascript for it's layout. This meant that the structure of the webpage changed based on what the mouse clicked on. I could not use BeautifulSoup to extract the all the data at once like I did with the clinics but rather had automate manually clicking each court listed on the webpage, and then extracting the relevant information.
