@@ -45,4 +45,4 @@ I can jot down my thoughts faster without interrupting the flow. I tend to over 
 
 Communication.
 Thats what got me into programs such as Dawsons Creek and Gilmore Girls. I was always fascinated with not only how articulate they are, but more so by how aware they are of their feelings and intentions.<br>
-I plan to communicate better in my writing (through multiple iterations and less self-censorship) as well as verbally. I such at small talk
+I plan to communicate better in my writing (through multiple iterations and less self-censorship) as well as verbally. I suck at small talk, but can hold meaningful conversation about an interesting topic with total strangers - often forgetting to ask their name, or introduce myself.
