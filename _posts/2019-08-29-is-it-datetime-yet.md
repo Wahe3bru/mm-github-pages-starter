@@ -17,7 +17,7 @@ What I realised after the fourth iteration was that sometimes a column is not al
 rather as string.<br>
 It's easy to convert to a datetime object as the format is always the same `%Y-%m-%d` eg 2019-08-24
 
-#### How do I know if the element in the column is diffrent?
+#### How do I know if the element in the column is different?
 So it turns out that sometimes a due date is not entered and defaults to all zeros. <br>
 It took me an embarrassingly long time to figure that out.<br>
 luckily, once again the [view more lines in the dataframe](https://wahe3bru.github.io/blog/see-all-the-rows-in-pandas/) technique was
