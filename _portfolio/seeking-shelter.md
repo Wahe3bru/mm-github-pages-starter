@@ -1,16 +1,16 @@
 ---
-title: "Webscraping; information gathering from public government site"
-excerpt: "my first contribution to open source"
+title: "Webscraping; information gathering for public benefit"
+excerpt: "my first contribution to open source project"
 header:
   image: /assets/images/unsplash-gallery-image-1.jpg
   teaser: assets/images/unsplash-gallery-image-1-th.jpg
 sidebar:
   - title: "Role"
-    image: http://placehold.it/350x250
+    image: "/assets/images/bio-photo.jpg"
     image_alt: "logo"
-    text: "Data Scientist"
+    text: "Data gathering"
   - title: "Responsibilities"
-    text: "public information should be easily available"
+    text: "scrape and clean all available data on clinics and courts nation wide"
 gallery:
   - url: /assets/images/unsplash-gallery-image-1.jpg
     image_path: assets/images/unsplash-gallery-image-1-th.jpg
