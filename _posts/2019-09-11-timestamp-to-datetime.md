@@ -12,7 +12,7 @@ header:
   image: https://source.unsplash.com/collection/8375052/1024x720
 ---
 
-I needed to extract a full years data from a table, but the date and time was encoded as unix timestamp - the number of seconds between a particular date and epoch (January 1, 1970) at UTC
+I needed to extract a full years data from a table, but the date and time was encoded as Unix timestamp - the number of seconds between a particular date and epoch (January 1, 1970) at UTC.
 So I needed to convert the first and last day of last year to timestamp.
 
 I found the answer on stackoverflow
@@ -26,7 +26,7 @@ which returns `1514757601.0` <br>
 
 <br>
 
-##### So let's understand what's happening
+#### So let's understand what's happening
 
 I needed the first date and time -> 2018-01-01 00:00:01
 <br>
@@ -47,9 +47,9 @@ print(timeTuple)
 ```
 returns<br>
 `time.struct_time(tm_year=2019, tm_mon=9, tm_mday=11, tm_hour=0, tm_min=0, tm_sec=0, tm_wday=2, tm_yday=254, tm_isdst=-1)`<br>
-which means the year can be accessed `print(timeTuple.tm_year)`<br>
+named tuple means the year can be accessed `print(timeTuple.tm_year)`<br>
 returns `2019`<br>
-or by indices `print(timeTuple[1])`<br>
+or month by using indices `print(timeTuple[1])`<br>
 which returns `9`
 
 <br>
@@ -65,6 +65,7 @@ So the steps are:
 - `time.mktime()` then converts the struct_time to a timestamp which is seconds since epoch (result is actually of type float)
   `1546293598.0`
 
+<br>
 
 Now that I understand the code, I realised that it could be made shorter and easier to understand.
 All we need is `time.mktime()` which requires a struct_time to return a timestamp.<br>
