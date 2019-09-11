@@ -1,5 +1,5 @@
 ---
-title: ML Notes: Linear Models
+title: ML Notes- Linear Models
 last_modified_at: 2019-09-01
 categories:
   - blog
@@ -10,6 +10,7 @@ tags:
 classes: wide
 header:
   image: https://source.unsplash.com/collection/8544654/1024x720
+excerpt: "Linear models make a prediction using a linear function of the input features"
 ---
 
 Linear models make a prediction using a linear function of the input features
