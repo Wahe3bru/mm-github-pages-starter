@@ -10,6 +10,7 @@ tags:
 classes: wide
 header:
   overlay_image: https://source.unsplash.com/collection/8375052/1024x720
+excerpt: "It took me an embarrassingly long time to figure that out"
 ---
 
 In my current project I import data from open tickets and give an estimated time to completion.
