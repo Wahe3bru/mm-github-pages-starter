@@ -13,7 +13,7 @@ tags:
 classes: wide
 header:
   overlay_image: https://source.unsplash.com/collection/8574854/1024x720
-excerpt:
+excerpt: "These are my notes learning webscraping"
 ---
 These are my notes learning webscraping from:
 [webscraping with python, 2nd edition by Ryan Mitchell](http://www.pythonscraping.com/)
@@ -22,7 +22,7 @@ These are my notes learning webscraping from:
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
 
-html = urlopen('http://www.pythonscraping.com/pages/page1.html')
+html = urlopen("http://www.pythonscraping.com/pages/warandpeace.html")
 bs = BeautifulSoup(html.read(), 'html.parser')
 
 nameList = bs.findAll('span', {'class':'green'}) for name in nameList:
