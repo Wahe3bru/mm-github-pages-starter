@@ -1,6 +1,6 @@
 ---
 title: subtle improvement
-last_modified_at: 2019-09-04T15:17:02-05:00
+last_modified_at: 2019-09-12T15:17:02-05:00
 categories:
   - thoughts
 tags:
@@ -23,5 +23,6 @@ I decided to make touch typing a habit. Every day I would do around ten minutes 
 
 I still need improvement, but I can definitely feel the improvement. I am getting my thoughts down, often writing akin to morning pages, which helps me to edit after and not during me putting down my thoughts. Which means that my writing will get better. My over all ability to express myself will improve leading to greater confidence in social situations.
 
-
+__update__
+on 12 September, after a total time of 11:42:28. Practicing around ten minutes a session, I have achieved my initial goal of having an average typing speed of 40 words per minute (with a top speed of 62wpm).
 If you want, you can view my [current progress](https://www.keybr.com/profile/n2mtbj6)
