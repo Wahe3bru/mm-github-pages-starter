@@ -1,6 +1,6 @@
 ---
 title: webscraping 02 beautifulSoup tags
-last_modified_at: 2019-09-12T15:17:02-05:00
+last_modified_at: 2019-09-07T15:17:02-05:00
 categories:
   - blog
   - thoughts
