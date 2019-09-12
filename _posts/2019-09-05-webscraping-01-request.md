@@ -11,7 +11,8 @@ tags:
   - requests
 classes: wide
 header:
-  image: https://source.unsplash.com/collection/8544654/1024x720
+  overlay_image: https://source.unsplash.com/collection/8574854/1024x720
+excerpt: "To start this series of learning to webscrape, I figured it best to start at getting the data using `requests`"
 ---
 To start this series of learning to webscrape, I figured it best to start at getting the data using `requests`.
 Python does have a builtin library to do web requests but the `requests` library is super nice!<br>
