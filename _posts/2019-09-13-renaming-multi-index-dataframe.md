@@ -12,9 +12,9 @@ header:
   overlay_image: https://source.unsplash.com/collection/8375052/1024x720
 excerpt:
 ---
-
-after grouping by `colx`
+In my current project, I needed to extract data from a log table. After extracting the relavant rows and grouping by `colx`,
 I needed to get the sum, count and mean from data2 column
+
 The easiest solution would be:
 ```python
 df_gr_agent.agg({'data2': {
@@ -23,7 +23,9 @@ df_gr_agent.agg({'data2': {
     'comp_callr_mean': 'mean'
 }})
 ```
+which returns:
 !["notice the 'data2' column name"](/assets/images/multi_idx_1.PNG)
+
 But unfortunately that method of renaming columns is deprecated.
 I found [Shane Lynn](https://www.shanelynn.ie/summarising-aggregation-and-grouping-data-in-python-pandas/) website quite educational and found their method of "using the ravel() method on the grouped columns."
 > Ravel() turns a Pandas multi-index into a simpler array, which we can combine into sensible column names
@@ -41,4 +43,5 @@ agent_COMPLETECALLER = df_gr_agent.agg({'data2': ['sum', 'count', 'mean']})
 agent_COMPLETECALLER.columns.set_levels(['completeCaller'], level=0, inplace=True)
 agent_COMPLETECALLER.columns = ["_".join(x) for x in agent_COMPLETECALLER.columns.ravel()]
 ```
+Returning a much neater result (no multi-level columns)
 ![more informative column names, no multi-level columns too](/assets/images/multi_idx_2.PNG)
