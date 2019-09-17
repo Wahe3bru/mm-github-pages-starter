@@ -20,7 +20,7 @@ able to google it quickly and efficiently.
 
 Revision is always good. Every now and then I like to review the basics and test myself at the intermediary level. That's why I love helping others, sometimes they will ask interesting questions that really challenge my understanding. I am not to proud to tell them "I don't know" - but I always get back to them with either the solution or ways to go about finding it.
 
-I found [100 pandas puzzles]() and thought it would be a cool review, I may learn something I had forgotten :)
+I found [100 pandas puzzles](https://github.com/ajcr/100-pandas-puzzles) and thought it would be a cool review, I may learn something I had forgotten :)
 
 **1.** Import pandas under the name `pd`.
 `import pandas as pd`
