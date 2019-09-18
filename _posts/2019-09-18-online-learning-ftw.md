@@ -19,7 +19,7 @@ I have always been interested in things, how they work and how they came to be.
 Unfortunately, a lot of my interests were not shared with those around me. My parents,
 being big on education bought me 4 different encyclopedias by the time I started to read.
 They encouraged self learning and searching for the answer instead of asking them. As I got
-older I realised that was more to do with them not actually knowing the answer, or knowing how to
+older I realized that was more to do with them not actually knowing the answer, or knowing how to
 explain it in a why I could understand. The world was changing, and South Africa was opening itself up
 to the world. Then the internet became accessible and my world opened up. Being a kid of the 90's I was more
 technologically adept than most adults which meant that figuring out how things worked and explaining (in a way that they can comprehend) became my job.
