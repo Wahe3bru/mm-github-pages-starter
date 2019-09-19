@@ -12,7 +12,7 @@ tags:
 classes: wide
 header:
   overlay_image: https://source.unsplash.com/collection/8375052/1024x720
-excerpt:
+excerpt: "I have always been interested in things, how they work and how they came to be"
 ---
 
 I have always been interested in things, how they work and how they came to be.
