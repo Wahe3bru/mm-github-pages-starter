@@ -1,6 +1,6 @@
 ---
 title: Seedling data webscraper update
-last_modified_at: 2019-09-18T15:17:02-05:00
+last_modified_at: 2019-09-20T15:17:02-05:00
 categories:
   - blog
 tags:
@@ -18,7 +18,7 @@ excerpt: "update replacing PhantomJS with the chromedriver"
 
  I realized when I ran the script that it would need to be updated as PhantomJS had been
  deprecated.
- The update replaces PhantomJS with the chromedriver, and it now supports running chrome headless.
+ The update replaces PhantomJS with the chromedriver, which supports running chrome headless.
 
  ```python
  # only new import
