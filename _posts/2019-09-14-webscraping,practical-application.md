@@ -7,6 +7,8 @@ tags:
   - python
   - notes
   - thoughts
+  - webscraping
+  - BeautifulSoup
 classes: wide
 header:
   overlay_image: https://source.unsplash.com/collection/8574854/1024x720

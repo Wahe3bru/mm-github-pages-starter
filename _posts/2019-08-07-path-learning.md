@@ -5,7 +5,7 @@ categories:
   - blog
 tags:
   - python
-  - pandas
+  - Pandas
 classes: wide
 header:
   image: https://unsplash.com/photos/J3JMyXWQHXU/720X480

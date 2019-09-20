@@ -17,3 +17,6 @@ excerpt:
 The archer sees the mark upon the path of the infinite, and He bends you with His might that His arrows may go swift and far.
 Let your bending in the archer’s hand be for gladness;
 For even as He loves the arrow that flies, so He loves also the bow that is stable. <br>— Khalil Gibran
+
+Alain de Botton, the British philosopher said, 
+“Anyone who isn’t embarrassed of who they were last year probably isn’t learning enough.”

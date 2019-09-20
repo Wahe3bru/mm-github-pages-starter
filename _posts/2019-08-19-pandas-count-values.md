@@ -5,7 +5,7 @@ categories:
   - blog
 tags:
   - python
-  - pandas
+  - Pandas
   - notes
   - tutorial
 classes: wide

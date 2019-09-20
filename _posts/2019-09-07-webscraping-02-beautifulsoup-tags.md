@@ -6,7 +6,8 @@ categories:
   - thoughts
 tags:
   - python
-  - Jupyter
+  - BeautifulSoup
+  - webscraping
   - notes
   - tutorial
   - thoughts
