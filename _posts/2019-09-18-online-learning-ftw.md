@@ -1,6 +1,6 @@
 ---
 title: Online learning FTW
-last_modified_at: 2019-09-18T10:17:02-05:00
+last_modified_at: 2019-09-23T10:17:02-05:00
 categories:
   - blog
   - thoughts
@@ -64,8 +64,8 @@ Pytest and the intro Data Engineering topics are really interesting.
 - [ ] Functions for manipulating data
 
 #### Python
-- [ ] Unit testing for data science
-- [ ] writing functions
+- [x] Unit testing for data science completed 23/09/19
+- [x] writing functions completed 22/09/19
 - [ ] Dealing with missing data
 - [ ] Introduction to Data Engineering
 - [ ] Introduction to Mongo db
@@ -81,7 +81,7 @@ Pytest and the intro Data Engineering topics are really interesting.
 - [ ] Streamlined data ingestion with pandas
 - [ ] Sentiment analysis
 
-- [ ] Introduction to ASW boto
+- [ ] Introduction to AWS boto
 - [ ] supply chain analytics
 - [ ] fraud detection
 - [ ] Analyzing marketing campaigns with pandas
