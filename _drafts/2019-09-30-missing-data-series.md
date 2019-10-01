@@ -19,6 +19,9 @@ in detecting and dealing with missing values before they can do some feature eng
 In this series I would like to summarize what I have learned in dealing with missing data.
 I will update this list as write each post.
 
+__Imputation important__
+Imputation should be done over the training set, and then propagated to the test set. This means that the mean / median to be used to fill missing values both in train and test set, should be extracted from the train set only. And this is to avoid overfitting.
+
 - [Detecting missing data]()
 - [Types of missing data](/_posts/2019-09-30-types-of-missing-data.md)
 - [Missing data imputation: Complete Case Analysis - list-wise & pair-wise deletion](/_posts/2019-10-01-complete-case-analysis.md)
