@@ -21,7 +21,7 @@ I will update this list as write each post.
 
 - [Detecting missing data]()
 - [Types of missing data](/_posts/2019-09-30-types-of-missing-data.md)
-- [Missing data imputation: Complete Case Analysis]()
+- [Missing data imputation: Complete Case Analysis - list-wise & pair-wise deletion](/_posts/2019-10-01-complete-case-analysis.md)
 - [Missing data imputation: Mean, median imputation]()
 - [Missing data imputation: Arbitrary value imputation]()
 - [Missing data imputation: End distribution imputation]()
