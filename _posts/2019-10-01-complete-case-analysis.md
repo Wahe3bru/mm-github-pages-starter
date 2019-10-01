@@ -10,7 +10,7 @@ tags:
 classes: wide
 header:
   overlay_image: https://source.unsplash.com/collection/8375052/1024x720
-excerpt:
+excerpt: "Pair-wise and list-wise deletion are methods used only if the variables missing are known to be Missing Completely At Random (MCAR). The assumption being that that the missing data is the same as randomly excluding some observations from the dataset"
 ---
 Pair-wise and list-wise deletion are methods used only if the variables missing are known to be Missing Completely At Random (MCAR). The assumption being that that the missing data is the same as randomly excluding some observations from the dataset.
 
