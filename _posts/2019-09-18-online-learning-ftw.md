@@ -66,10 +66,10 @@ Pytest and the intro Data Engineering topics are really interesting.
 #### Python
 - [x] Unit testing for data science completed 23/09/19
 - [x] writing functions completed 22/09/19
-- [ ] Dealing with missing data
+- [x] Dealing with missing data 30/09/19
 - [ ] Introduction to Data Engineering
 - [ ] Introduction to Mongo db
-- [ ] Regular expressions
+- [x] Regular expressions 26/09/19
 - [ ] Forecasting using ARIMA models
 - [ ] Exploratory data analysis
 - [ ] feature engineering for ML
