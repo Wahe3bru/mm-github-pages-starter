@@ -26,7 +26,7 @@ Imputation should be done over the training set, and then propagated to the test
 - [Types of missing data](/_posts/2019-09-30-types-of-missing-data.md)
 - [Missing data imputation: Complete Case Analysis - list-wise & pair-wise deletion](/_posts/2019-10-01-complete-case-analysis.md)
 - [Missing data imputation: Mean, median imputation](/_posts/2019-10-02-mean,-median-and-mode-imputation.md)
-- [Missing data imputation: Arbitrary value imputation]()
+- [Missing data imputation: Arbitrary value imputation](/_posts/2019-10-03-arbitrary-value-imputation.md)
 - [Missing data imputation: End distribution imputation]()
 - [Missing data imputation: Frequent category imputation]()
 - [Missing data imputation: Missing category imputation]()
