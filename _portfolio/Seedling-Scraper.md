@@ -1,5 +1,5 @@
 ---
-title: "Fizz Bang Identity"
+title: "Seedling Scraper"
 excerpt: "Atleast one should include webscraping"
 header:
   image: /assets/images/unsplash-gallery-image-2.jpg
