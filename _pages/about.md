@@ -20,6 +20,6 @@ more to follow...
         <p>This browser does not support PDFs. Please download the PDF to view it: <a href="/assets/Waheeb_Resume.pdf">Download PDF</a>.</p>
     </embed>
 </object>
-<!-- <iframe src="http://docs.google.com/gview?url=https://drive.google.com/open?id=1ZmJD0QuqHUQD44JQgH3hx53lxRtlpgd0&embedded=true" style="width:718px; height:900px;" frameborder="0"></iframe> -->
+<!-- <iframe src="https://drive.google.com/file/d/1ediArBjaEeoOePEEAUqNOjcgVtRS_rJx/view?usp=sharing" style="width:718px; height:900px;" frameborder="0"></iframe> -->
 
 </div><!-- /.blurb -->
