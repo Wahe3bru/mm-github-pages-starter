@@ -15,3 +15,5 @@ header:
   overlay_image: https://source.unsplash.com/collection/8375052/1024x720
 excerpt:
 ---
+https://en.wikipedia.org/wiki/Cron
+https://www.marksanborn.net/linux/learning-cron-by-example/
