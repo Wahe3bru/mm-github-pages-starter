@@ -2,11 +2,11 @@
 title: "Communicating my commute"
 excerpt: "Insights gained from analyzing my Strava commuting data"
 header:
-  image: /assets/images/unsplash-gallery-image-3.jpg
-  teaser: assets/images/unsplash-gallery-image-3-th.jpg
+  image: /assets/projects/Story_telling/daily2017.PNG
+  teaser: assets/projects/Story_telling/daily2017.PNG
 sidebar:
   - title: "Role"
-    image: http://placehold.it/350x250
+    image: assets/images/bio-photo.jpg
     image_alt: "logo"
     text: "Data Storyteller"
   - title: "Responsibilities"
