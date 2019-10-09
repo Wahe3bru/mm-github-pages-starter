@@ -34,3 +34,7 @@
 - adding styling
 - multi page app
 - hosting online
+
+## data engineering
+- cron
+- apache airflow basics
