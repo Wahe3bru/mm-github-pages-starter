@@ -15,9 +15,9 @@ more to follow...
 <div class="blurb">
     <h1>CV</h1>
 	<p>I still need to add things here. I <em>do</em> know things, promise!</p>
-  <object data="/assets/Waheeb_Resume.pdf" type="application/pdf" width="700px" height="900px">
-    <embed src="/assets/Waheeb_Resume.pdf">
-        <p>This browser does not support PDFs. Please download the PDF to view it: <a href="/assets/Waheeb_Resume.pdf">Download PDF</a>.</p>
+  <object data="/assets/docs/Waheeb_Resume.pdf" type="application/pdf" width="700px" height="900px">
+    <embed src="/assets/docs/Waheeb_Resume.pdf">
+        <p>This browser does not support PDFs. Please download the PDF to view it: <a href="/assets/docs/Waheeb_Resume.pdf">Download PDF</a>.</p>
     </embed>
 </object>
 <!-- <iframe src="https://drive.google.com/file/d/1ediArBjaEeoOePEEAUqNOjcgVtRS_rJx/view?usp=sharing" style="width:718px; height:900px;" frameborder="0"></iframe> -->
