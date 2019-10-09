@@ -3,8 +3,8 @@ title: "Communicating my commute"
 excerpt: "Insights gained from analyzing my Strava commuting data"
 classes: wide
 header:
-  image:
-  teaser:
+  image: assets/projects/Story_telling/daily2017.PNG
+  teaser: assets/projects/Story_telling/daily2017.PNG
 sidebar:
   - title: "Role"
     image: assets/images/bio-photo.jpg
@@ -37,9 +37,10 @@ Quick note:
 2017 displays my average work commute for the year. In 2018 I studied At [EDSA](https://explore-datascience.net) which was about 8km from home. In 2019 I started a new job that was located in Tygerberg Office Park, 20km away from home. I have wanted to commute but unfortunately personal safety was a concern from both family and from experienced cyclists. <br>
 The notebook can be found (here)[]
 
-{% include gallery caption="This is a sample gallery to go along with this case study." %}
+{% include gallery caption="Here are some graphs from the EDA" %}
 
 ### Summary
+
 summary:
 2017
 distance
