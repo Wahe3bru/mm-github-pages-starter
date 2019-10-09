@@ -18,7 +18,7 @@ gallery:
   - url: /assets/projects/Story_telling/temperature.PNG
     image_path: assets/projects/Story_telling/temperature.PNG
     alt: "morning and afternoon temperature"
-  - url: /assets/projects/Story_telling/temperature.PNG
+  - url: /assets/projects/Story_telling/distance.PNG
     image_path: assets/projects/Story_telling/distance.PNG
     alt: "every ride distance"
   - url: /assets/projects/Story_telling/daily2017.PNG
