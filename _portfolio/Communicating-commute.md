@@ -1,6 +1,7 @@
 ---
 title: "Communicating my commute"
 excerpt: "Insights gained from analyzing my Strava commuting data"
+classes: wide
 header:
   image:
   teaser:
