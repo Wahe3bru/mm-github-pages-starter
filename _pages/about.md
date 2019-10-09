@@ -12,14 +12,13 @@ I am creative, creative problem solving is **the only** successful approach in f
 <br> I am an only child. In a society where the first other only child's I met were at UCT - it's viewed with sympathy but I see it as a definite positive. I can view things with an objectivity
 more to follow...  
 
-<div class="blurb">
+<div>
     <h1>CV</h1>
-	<p>I still need to add things here. I <em>do</em> know things, promise!</p>
   <object data="/assets/docs/Waheeb_Resume.pdf" type="application/pdf" width="700px" height="900px">
     <embed src="/assets/docs/Waheeb_Resume.pdf">
         <p>This browser does not support PDFs. Please download the PDF to view it: <a href="/assets/docs/Waheeb_Resume.pdf">Download PDF</a>.</p>
     </embed>
 </object>
-<!-- <iframe src="https://drive.google.com/file/d/1ediArBjaEeoOePEEAUqNOjcgVtRS_rJx/view?usp=sharing" style="width:718px; height:900px;" frameborder="0"></iframe> -->
+<iframe src="https://drive.google.com/file/d/1ediArBjaEeoOePEEAUqNOjcgVtRS_rJx/view?usp=sharing" style="width:718px; height:900px;" frameborder="0"></iframe>
 
 </div><!-- /.blurb -->
