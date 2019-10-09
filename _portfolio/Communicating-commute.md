@@ -12,15 +12,21 @@ sidebar:
   - title: "Responsibilities"
     text: "Extracting and relaying information gained from raw data"
 gallery:
-  - url: /assets/images/unsplash-gallery-image-1.jpg
-    image_path: assets/images/unsplash-gallery-image-1-th.jpg
-    alt: "placeholder image 1"
-  - url: /assets/images/unsplash-gallery-image-2.jpg
-    image_path: assets/images/unsplash-gallery-image-2-th.jpg
-    alt: "placeholder image 2"
-  - url: /assets/images/unsplash-gallery-image-3.jpg
-    image_path: assets/images/unsplash-gallery-image-3-th.jpg
-    alt: "placeholder image 3"
+  - url: /assets/projects/Story_telling/weather.PNG
+    image_path: assets/projects/Story_telling/weather.PNG
+    alt: "count of weather conditions  during commute"
+  - url: /assets/projects/Story_telling/temperature.PNG
+    image_path: assets/projects/Story_telling/temperature.PNG
+    alt: "morning and afternoon temperature"
+  - url: /assets/projects/Story_telling/temperature.PNG
+    image_path: assets/projects/Story_telling/distance.PNG
+    alt: "every ride distance"
+  - url: /assets/projects/Story_telling/daily2017.PNG
+    image_path: assets/projects/Story_telling/daily2017.PNG
+    alt: "every ride in 2017"
+    - url: /assets/projects/Story_telling/daily2018.PNG
+    image_path: assets/projects/Story_telling/daily2018.PNG
+    alt: "every ride in 2018"
 ---
 
 I started cycling to work to a) rehabilitate my knee damaged in an accident, b) avoid sitting in traffic and
@@ -54,6 +60,7 @@ commute
 - - no morning, afternoon
 - comparing 2017 vs 2018
 
+### Insights
  monthly average: ave hr, max hr, ave speed, max speed, weather_temperature, moving_time
 for 2017 and 2018
 
