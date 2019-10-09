@@ -2,7 +2,7 @@
 title: "Communicating my commute"
 excerpt: "Insights gained from analyzing my Strava commuting data"
 header:
-  image: 
+  image:
   teaser:
 sidebar:
   - title: "Role"
@@ -24,7 +24,7 @@ gallery:
   - url: /assets/projects/Story_telling/daily2017.PNG
     image_path: assets/projects/Story_telling/daily2017.PNG
     alt: "every ride in 2017"
-    - url: /assets/projects/Story_telling/daily2018.PNG
+  - url: /assets/projects/Story_telling/daily2018.PNG
     image_path: assets/projects/Story_telling/daily2018.PNG
     alt: "every ride in 2018"
 ---
