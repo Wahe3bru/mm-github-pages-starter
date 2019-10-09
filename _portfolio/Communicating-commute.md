@@ -1,6 +1,6 @@
 ---
-title: "Ginger Gulp Identity"
-excerpt: "Ginger Gulp design system including logo mark, website design, and branding applications."
+title: "Communicating my commute"
+excerpt: "Insights gained from analyzing my Strava commuting data"
 header:
   image: /assets/images/unsplash-gallery-image-3.jpg
   teaser: assets/images/unsplash-gallery-image-3-th.jpg
@@ -8,9 +8,9 @@ sidebar:
   - title: "Role"
     image: http://placehold.it/350x250
     image_alt: "logo"
-    text: "Designer, Front-End Developer"
+    text: "Data Storyteller"
   - title: "Responsibilities"
-    text: "Reuters try PR stupid commenters should isn't a business model"
+    text: "Extracting and relaying information gained from raw data"
 gallery:
   - url: /assets/images/unsplash-gallery-image-1.jpg
     image_path: assets/images/unsplash-gallery-image-1-th.jpg
@@ -23,7 +23,12 @@ gallery:
     alt: "placeholder image 3"
 ---
 
-Pictures of Goats section West Seattle Blog dingbat newspaper rubber cement Google+ newsroom cafe news.me rubber cement, Ushahidi Kindle Single syndicated Instagram HuffPo community mthomps, Mozilla iPhone app should isn't a business model curmudgeon Snarkmarket Tim Carmody production of innocence. Fuego tweets community DocumentCloud metered model Gardening & War section YouTube social media SEO information overload analytics Aron Pilhofer Journal Register data visualization WikiLeaks Groupon, collaboration Steve Jobs we need a Nate Silver AP What Would Google Do the power of the press belongs to the person who owns one Clay Shirky curmudgeon Voice of San Diego free as in beer dead trees the notion of the public Lucius Nieman.
+I started cycling to work to a) rehabilitate my knee damaged in an accident, b) avoid sitting in traffic and
+c) get fit and healthy. When I started cycling to work, my office was 6km away and I had (recently created) bicycle paths for most of the way. My office then moved to the CBD which was just under 12km. By then I had been commuting to work (both office and sites all over the Southern Suburbs) for about 4 years. I started using Strava to record my daily commute in December of 2016.
+
+Quick note:
+2017 displays my average work commute for the year. In 2018 I studied At [EDSA](https://explore-datascience.net) which was about 8km from home. In 2019 I started a new job that was located in Tygerberg Office Park, 20km away from home. I have wanted to commute but unfortunately personal safety was a concern from both family and from experienced cyclists. <br>
+The notebook can be found (here)[]
 
 {% include gallery caption="This is a sample gallery to go along with this case study." %}
 
