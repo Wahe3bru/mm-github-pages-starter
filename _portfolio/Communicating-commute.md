@@ -2,8 +2,8 @@
 title: "Communicating my commute"
 excerpt: "Insights gained from analyzing my Strava commuting data"
 header:
-  image: /assets/projects/Story_telling/daily2017.PNG
-  teaser: assets/projects/Story_telling/daily2017.PNG
+  image: 
+  teaser:
 sidebar:
   - title: "Role"
     image: assets/images/bio-photo.jpg
