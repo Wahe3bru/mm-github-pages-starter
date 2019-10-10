@@ -19,6 +19,6 @@ more to follow...
         <p>This browser does not support PDFs. Please download the PDF to view it: <a href="/assets/docs/Waheeb_Resume.pdf">Download PDF</a>.</p>
     </embed>
 </object>
-<iframe src="https://drive.google.com/file/d/1pO80gBFBtjpmu6ANnXBkJ62LagKFIaQH/view?usp=sharing" style="width:718px; height:900px;" frameborder="0"></iframe>
+<!-- <iframe src="https://drive.google.com/file/d/1pO80gBFBtjpmu6ANnXBkJ62LagKFIaQH/view?usp=sharing" style="width:718px; height:900px;" frameborder="0"></iframe> -->
 
 </div><!-- /.blurb -->
