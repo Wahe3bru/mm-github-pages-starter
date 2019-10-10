@@ -13,10 +13,8 @@ tags:
 classes: wide
 header:
   overlay_image: https://source.unsplash.com/collection/8375052/1024x720
-excerpt:
+excerpt: "Cron is a time-based job scheduler in Unix-like computer operating systems, its general-purpose nature makes it useful for things like downloading files from the Internet and downloading email at regular intervals"
 ---
-https://en.wikipedia.org/wiki/Cron
-https://www.marksanborn.net/linux/learning-cron-by-example/
 
 I use raspberry pi's as power efficient computers to run scripts that does not require much processing power. To schedule a time to run the script I use cron. I am learning Apache Airflow and it also uses similar cron expression of five fields to schedule (explained quite eloquently in the picture below)
 >The software utility cron is a time-based job scheduler in Unix-like computer operating systems. Users that set up and maintain software environments use cron to schedule jobs (commands or shell scripts) to run periodically at fixed times, dates, or intervals. It typically automates system maintenance or administration—though its general-purpose nature makes it useful for things like downloading files from the Internet and downloading email at regular intervals
