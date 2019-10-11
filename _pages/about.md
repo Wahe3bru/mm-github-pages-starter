@@ -3,14 +3,15 @@ permalink: /about/
 title: "About"
 ---
 
-I am a life long learner. The world is a big and interesting place. I find too many things interesting in particular humans, and their interactions.
+I am a life long learner. The world is a big and interesting place. I find many things interesting in particular humans, and their interactions.
 
-I had a science focussed background in high school which composed of mainly formulas and algorithms, except for Biology. That was the only subject that I had to right essays. I had to piece systems together to understand the whole. Everything came so easy to me with regards to systems.
-When I switched from Computer Engineering to a Psychology and Sociology major - I never shy away from things i have little experience/exposure, I was definitely a fish out of water. I learned so much more from the experience, complimentary to the academic education.
+I believe in automating as much menial tasks as possible, freeing the individual/s to work on more creative and productive endeavors. I do not the minimize the benefits of manual labor, an avid gardener I enjoy working with natural systems and tweaking them to be more productive with less input from me.
 
-I am creative, creative problem solving is **the only** successful approach in finding solutions to novel problems without mentors.
-<br> I am an only child. In a society where the first other only child's I met were at UCT - it's viewed with sympathy but I see it as a definite positive. I can view things with an objectivity
-more to follow...  
+Careful planning and thought often pays dividends in implementation. But like all things, unforeseen circumstances and interactions can influence and often derail well thought out plans. The neighbour's new cat may negatively influence the local bird population. Flexibility and pragmatism means that there's less concern for rodents, but requires additional bird friendly habitat. Breaking the symmetry of the garden by moving the birdbath to a more practical location ensures usage by providing more security for them and less opportunity for the cat.
+
+There's a saying in Permaculture: "The problem is the solution" by changing the way we think about a problem can yield interesting results.
+I prefer to start from the big picture, dividing tasks by theme and effort while keeping in mind agility and pivoting to new opportunities.
+I may lose a couple of seedlings to caterpillars, but my daughters enjoy the beautiful butterflies.
 
 <div>
     <h1>CV</h1>
