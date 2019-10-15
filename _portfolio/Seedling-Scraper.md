@@ -33,8 +33,8 @@ If there are new seedlings (ie seedling data not previously stored in database),
 
 {% include gallery caption="Here are images of the website and the notifications received" %}
 
-This was a quick project I created to solidify my learning webscraping using BeautifulSoup and Requests libraries. My notes on [Requests](/_posts/2019-09-05-webscraping-01-request.md) can be found here as well as my notes on [BeautifulSoup](/_posts/2019-09-07-webscraping-02-beautifulsoup-tags.md).
-A blog posts explaining the script can be found [here](/_posts/2019-09-14-webscraping,practical-application.md) - not at the time I was using PhantomJS.
+This was a quick project I created to solidify my learning webscraping using BeautifulSoup and Requests libraries. My notes on [Requests](https://wahe3bru.github.io/blog/webscraping-01-request/) can be found [here as well](https://wahe3bru.github.io/blog/thoughts/requests-some-beautifulsoup/) as my notes on [BeautifulSoup](https://wahe3bru.github.io/blog/webscraping-02-beautifulsoup-tags/).
+A blog posts explaining the script can be found [here](https://wahe3bru.github.io/blog/webscraping,practical-application/) - note at the time I was using PhantomJS.
 
 __Note:__ This project is still in active development. I use projects to instill what I have learned and to experiment with new ideas. I am refactoring the code to put all helper functions in a separate script. I also plan to use Apache Airflow to schedule and run the webscraping and notification, which means refactoring the code adding email notification and other features. <br>
 I am happy with the current Minimal Viable Product as it was relatively quick to implement whilst challenging, trying to extract data from a JavaScript driven website and adding notification via Telegram.
