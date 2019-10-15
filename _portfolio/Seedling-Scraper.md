@@ -1,29 +1,28 @@
 ---
 title: "Seedling Scraper"
-excerpt: "Atleast one should include webscraping"
+excerpt: "Using Selenium to web scrape JavaScript driven website to extract data of available seedlings, store the data as well as available period in a database. Notifying me of new seedlings available using a telegram chatbot"
 header:
-  image: /assets/images/unsplash-gallery-image-2.jpg
-  teaser: assets/images/unsplash-gallery-image-2-th.jpg
+  image: https://source.unsplash.com/AsRAyHIkOHk/1024x720
+  teaser: https://source.unsplash.com/AsRAyHIkOHk/1024x720
 sidebar:
   - title: "Role"
     image: http://placehold.it/350x250
     image_alt: "logo"
-    text: "Designer, Front-End Developer"
+    text: "Organic Gardner, Hobbyist with no cape"
   - title: "Responsibilities"
-    text: "Reuters try PR stupid commenters should isn't a business model"
+    text: "Notifying of seedling variety updates and saving availability"
 gallery:
-  - url: /assets/images/unsplash-gallery-image-1.jpg
-    image_path: assets/images/unsplash-gallery-image-1-th.jpg
-    alt: "placeholder image 1"
-  - url: /assets/images/unsplash-gallery-image-2.jpg
-    image_path: assets/images/unsplash-gallery-image-2-th.jpg
-    alt: "placeholder image 2"
-  - url: /assets/images/unsplash-gallery-image-3.jpg
-    image_path: assets/images/unsplash-gallery-image-3-th.jpg
-    alt: "placeholder image 3"
+  - url: /assets/images/seedlings.PNG
+    image_path: assets/images/seedlings.PNG
+    alt: "seedling information on website"
+  - url: /assets/images/seedling_notification.PNG
+    image_path: assets/images/seedling_notification.PNG
+    alt: "seedling notification via telegram bot"
 ---
 
-Pictures of Goats section West Seattle Blog dingbat newspaper rubber cement Google+ newsroom cafe news.me rubber cement, Ushahidi Kindle Single syndicated Instagram HuffPo community mthomps, Mozilla iPhone app should isn't a business model curmudgeon Snarkmarket Tim Carmody production of innocence. Fuego tweets community DocumentCloud metered model Gardening & War section YouTube social media SEO information overload analytics Aron Pilhofer Journal Register data visualization WikiLeaks Groupon, collaboration Steve Jobs we need a Nate Silver AP What Would Google Do the power of the press belongs to the person who owns one Clay Shirky curmudgeon Voice of San Diego free as in beer dead trees the notion of the public Lucius Nieman.
+### Project Summary:
+Using Selenium (in headless mode) I scrape the information available on the [Livingseed]() website. The seedling info is saved in database, as well as the data it was available. If there are new seedlings available, the name, price and picture of seedling is sent via Telegram chatbot.
+
 
 {% include gallery caption="This is a sample gallery to go along with this case study." %}
 
