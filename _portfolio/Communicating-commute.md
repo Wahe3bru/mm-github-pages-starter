@@ -47,7 +47,7 @@ The notebook can be found (here)[]
 
 #### Some Simple Stats
 
-Category||2017|2018 
+Category||2017|2018
 -|-|-|-
 Distance in km
 |total distance|2853.82|1846.17

@@ -6,7 +6,7 @@ header:
   teaser: https://source.unsplash.com/AsRAyHIkOHk/1024x720
 sidebar:
   - title: "Role"
-    image: http://placehold.it/350x250
+    image: "/assets/images/bio-photo.jpg"
     image_alt: "logo"
     text: "Organic Gardner, Hobbyist with no cape"
   - title: "Responsibilities"
@@ -37,4 +37,4 @@ This was a quick project I created to solidify my learning webscraping using Bea
 A blog posts explaining the script can be found [here](/_posts/2019-09-14-webscraping,practical-application.md) - not at the time I was using PhantomJS.
 
 __Note:__ This project is still in active development. I use projects to instill what I have learned and to experiment with new ideas. I am refactoring the code to put all helper functions in a separate script. I also plan to use Apache Airflow to schedule and run the webscraping and notification, which means refactoring the code adding email notification and other features. <br>
-I am happy with the current Minimal Viable Product as it was relatively quick to implement whilst challenging, trying to extract data from a JavaScript driven website and adding notification via Telegram. 
+I am happy with the current Minimal Viable Product as it was relatively quick to implement whilst challenging, trying to extract data from a JavaScript driven website and adding notification via Telegram.
