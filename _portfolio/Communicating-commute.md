@@ -35,11 +35,11 @@ I started cycling to work
 - avoid sitting in traffic and
 - get fit and healthy.
 
-When I started cycling to work in 2014, my office was 6km away and I enjoyed (recently created) bicycle paths for most of the way. My office then moved to the CBD which increased my commute distance to just under 12km. By then I had been commuting to work (both office and sites all over the Southern Suburbs) for about 3 years. I started using Strava to record my daily commute in December of 2016.
+When I started cycling to work in 2014, my office was 6km away and I enjoyed (recently created) bicycle paths for most of the way. My office then moved to the CBD which increased my commute distance to just under 12km. By then I had been commuting to work (both office and sites all over the Southern Suburbs) for about 3 years. I started using [Strava](https://www.strava.com/athletes/18377851) to record my daily commute in December of 2016.
 
 Quick note:
-2017 displays my average work commute for the year. In 2018 I studied At [EDSA](https://explore-datascience.net) which was about 8km from home. In 2019 I started a new job that was located in Tygerberg Office Park, 20km away from home. I have wanted to commute but unfortunately personal safety was a concern from both family and from experienced cyclists. <br>
-The notebook can be found (here)[]
+2017 would be my typical work commute for the year, the route I had taken for 2 years. In 2018 I studied At [EDSA](https://explore-datascience.net) which was about 8km from home. In 2019 I started a new job that was located in Tygerberg Office Park, 20km away from home. I have wanted to commute but unfortunately personal safety was a concern from both family and from speaking to experienced cyclists. <br>
+The notebook can be found (here)[https://github.com/Wahe3bru/CommunicatingCommute]
 
 {% include gallery caption="Here are some graphs from the EDA" %}
 
