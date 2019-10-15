@@ -9,7 +9,7 @@ tags:
   - ML Notes
 classes: wide
 header:
-  image: https://source.unsplash.com/collection/8544654/1024x720
+  overlay_image: https://source.unsplash.com/collection/8544654/1024x720
 excerpt: "Linear models make a prediction using a linear function of the input features"
 ---
 

@@ -10,7 +10,7 @@ tags:
   - Pandas
 classes: wide
 header:
-  image: https://source.unsplash.com/collection/8375052/1024x720
+  overlay_image: https://source.unsplash.com/collection/8375052/1024x720
 ---
 
 I always want to see all the columns.

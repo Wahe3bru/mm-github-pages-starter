@@ -9,7 +9,7 @@ tags:
   - tutorial
 classes: wide
 header:
-  image: https://source.unsplash.com/collection/8375052/1024x720
+  overlay_image: https://source.unsplash.com/collection/8375052/1024x720
 ---
 ## AKA I have a model... now what?
 

@@ -10,7 +10,7 @@ tags:
   - tutorial
 classes: wide
 header:
-  image: https://source.unsplash.com/collection/8375052/1024x720
+  overlay_image: https://source.unsplash.com/collection/8375052/1024x720
 ---
 On a current project I am working on, I imported the first 6 months of this year
 to develop a model for ~~redacted~~ work.

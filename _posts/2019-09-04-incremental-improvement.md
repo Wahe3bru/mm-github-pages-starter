@@ -7,7 +7,7 @@ tags:
   - thoughts
 classes: wide
 header:
-  image: https://source.unsplash.com/collection/8375052/1024x720
+  overlay_image: https://source.unsplash.com/collection/8375052/1024x720
 ---
 Sometimes improving one thing can have many knockoff effects. Some are intentional and foreseeable. The unintended consequences have mostly been beneficial, the others ... I'm waiting to see.
 

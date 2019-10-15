@@ -8,7 +8,7 @@ tags:
   - Pandas
 classes: wide
 header:
-  image: https://unsplash.com/photos/J3JMyXWQHXU/720X480
+  overlay_image: https://unsplash.com/photos/J3JMyXWQHXU/720X480
 ---
 
 The key to learning new things is to quickly put what you've learned into practice.

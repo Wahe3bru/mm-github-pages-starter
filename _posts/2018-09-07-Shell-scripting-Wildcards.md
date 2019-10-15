@@ -6,7 +6,7 @@ categories:
 tags:
   - bash
 header:
-  image: https://source.unsplash.com/ieic5Tq8YMk/1280x900
+  overlay_image: https://source.unsplash.com/ieic5Tq8YMk/1280x900
 ---
 
 Wildcards are used for pattern matching. They are similar in many programming languages (like python), so this is just a summary of them.

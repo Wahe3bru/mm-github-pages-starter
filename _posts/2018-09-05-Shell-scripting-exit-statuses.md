@@ -6,7 +6,7 @@ categories:
 tags:
   - bash
 header:
-  image: https://source.unsplash.com/ieic5Tq8YMk/1280x900
+  overlay_image: https://source.unsplash.com/ieic5Tq8YMk/1280x900
 ---
 
 These are useful with directional flow as well as for error checking.

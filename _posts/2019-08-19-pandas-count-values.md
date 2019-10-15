@@ -10,7 +10,7 @@ tags:
   - tutorial
 classes: wide
 header:
-  image: https://source.unsplash.com/collection/8375052/1024x720
+  overlay_image: https://source.unsplash.com/collection/8375052/1024x720
 ---
 Since I have been googling the correct name of the method so much,
 that my autofill gets it right by the 3rd letter...<br>

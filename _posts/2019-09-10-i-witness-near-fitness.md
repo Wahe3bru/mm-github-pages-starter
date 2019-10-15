@@ -8,7 +8,7 @@ tags:
   - thoughts
 classes: wide
 header:
-  image: https://source.unsplash.com/collection/8544684/1024x720
+  overlay_image: https://source.unsplash.com/collection/8544684/1024x720
 ---
 
 I have read multiple times about the link between exercise and memory/learning. Which to be honest was not that hard to comprehend, having seen the benefits of cycling to work everyday. Sleep being the other important factor in memory and learning. So when I studied last year I paid more attention to my sleep - being a recovering insomniac and chronic under-sleeper it was the best bang for buck for enhancing my intense year of learning programming, databases, statistics and machine learning.

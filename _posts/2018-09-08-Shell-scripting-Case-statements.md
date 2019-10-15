@@ -6,7 +6,7 @@ categories:
 tags:
   - bash
 header:
-  image: https://source.unsplash.com/ieic5Tq8YMk/1280x900
+  overlay_image: https://source.unsplash.com/ieic5Tq8YMk/1280x900
 ---
 
 Case statements are used in place of multiple "if statements". To illustrate I will rewrite a previous example:

@@ -9,7 +9,7 @@ tags:
   - tutorial
 classes: wide
 header:
-  image: https://source.unsplash.com/collection/8375052/1024x720
+  overlay_image: https://source.unsplash.com/collection/8375052/1024x720
 ---
 The whole reason for going static website generation was for the ease.
 I have thoughts that run around in my head all day but i struggle to put them down.
