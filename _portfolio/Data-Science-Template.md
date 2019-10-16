@@ -33,6 +33,7 @@ There are two documents that are included with each project.
 The first [document](https://github.com/Wahe3bru/DataScienceTeamProjectTemplate/blob/master/%7B%7Bcookiecutter.directory_name%7D%7D/docs/admin/Creating_new_project.md)explaining the template, the rationale as well as the expected workflow.
 
 The second document explains the [coding style](https://github.com/Wahe3bru/DataScienceTeamProjectTemplate/blob/master/%7B%7Bcookiecutter.directory_name%7D%7D/docs/reference_material/CodingStyle-Python.md) to be used with examples for illustration.
+Below a sample taken from the document on coding style.
 ```
 Put all imports at the top of the page with three sections,
  each separated by a blank line, in this order:
