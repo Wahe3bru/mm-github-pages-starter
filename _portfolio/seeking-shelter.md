@@ -34,7 +34,7 @@ It took me a Sunday night to get the basics down so I could scrape all the clini
 __scraping clinic data__<br>
 I used Requests and BeautifulSoup libraries in a Jupyter Notebook.
 The website was easy to navigate and I extracted the url for each province manually.
-After figuring out how to extract the wanted information from Eastern Cape, I generalized the script so that I could the data for the rest of the provinces.
+After figuring out how to extract the wanted information from Eastern Cape, I generalised the script so that I could the data for the rest of the provinces.
 
 It was not a very hard task, <explain>
 
@@ -45,3 +45,4 @@ After struggling to extract data from four different pdf extraction tools I deci
 
 I used Selenium and targeted the relevant links (court names) and extracted the information displayed for the selected court.
 I saved the data in a Pandas DataFrame and exported it as csv.
+The scraped data had to be cleaned and I used Pandas string methods and some regex.
