@@ -44,6 +44,7 @@ The notebook can be found (here)[https://github.com/Wahe3bru/CommunicatingCommut
 {% include gallery caption="Here are some graphs from the EDA" %}
 
 ### Summary
+I created a presentation of the insights, the slide deck which can be viewed [here](#)
 
 #### Some Simple Stats
 
@@ -67,6 +68,11 @@ commute
 
 
 ### Insights
+The biggest factor in me cycling that day was the weather, specifically rain. If it rained that morning I would have to take the car, if rain was ecpected the afternoon I would chance it. <br>
+The second factor would be if the condition of my bike and my health. Typically if I had a puncture in the week most likely the next days commmute might be affected. If I was sick/injured I would take the car. I did xfit on Tuesday evenings, would that affect my commute?
+
+There are 49 days where I travelled one way. Not in any month had I made complete return trips.
+There are 7 trips that were incomplete, either due to weather or puncture.
 
 comparing weekdays
 - incomplete commutes
@@ -77,5 +83,3 @@ comparing weekdays
 
  monthly average: ave hr, max hr, ave speed, max speed, weather_temperature, moving_time
 for 2017 and 2018
-
-hackgate copyright Lucius Nieman CNN leaves it there right-sizing a giant stack of newspapers that you'll never read net neutrality algorithms RT algorithms TechCrunch 5% corruption, horse-race coverage Gardening & War section CTR try PR CPC David Cohn shoot a photo algorithms content is king Android Snarkmarket crowdfunding, Fuego Twitter topples dictators YouTube abundance WordPress Reuters try PR stupid commenters should isn't a business model bringing a tote bag to a knife fight.
