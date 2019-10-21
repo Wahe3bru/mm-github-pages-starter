@@ -57,7 +57,16 @@ prizes_collection = db["prizes"]
 ```
 
 ##### methods
+__aggregations__
 `db.laureates.count_documents(filter)`
+
+`db.laureates.distinct(gender,[filter])`
+- is efficient if their is a collection index on the field
+- has optional filter
+
+__query__
+`.find()`
+`.find_one()`
 
 #### filter
 filters are a document with key values to match
@@ -83,6 +92,8 @@ for non exact filtering, query operators are used
 ```Python
 db.inventory.find({"status": {"$in": ["OK", "Fault"]}})
 ```
+#### dot notation to reach into subfields
+can specify fields deeper than root directory, can be used in query methods and aggregations
 
 ----
 some  considerations
