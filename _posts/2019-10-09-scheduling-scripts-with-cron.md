@@ -37,6 +37,13 @@ here's some examples:
 - to run command 8:37 pm every 1st of the month `37 20 1 * *`
 - to run command hourly on the 9th of September `0 * 09 09 *`
 
+Here's a more complex one: */15 9-17 * * 1-3,5 log_my_activity.py <br>
+*/15 - every fifteen minutes
+9-17 - between office hours 9am to 5pm
+* - every day of the month
+* - every month of the year
+1-3,5 - but only Mondays, Tuesdays, Wednessdays, and Fridays
+
 There are also non-standard shorthand methods like:
 
 Entry	|Description|	Equivalent to
