@@ -1,6 +1,6 @@
 
 #### Chapter 1 - 4:
-Overview and light reading
+- [x] Overview and light reading
 
 ## Section II - Structure APIs
 ### Structured API Overview
