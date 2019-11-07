@@ -4,17 +4,17 @@
 
 ## Section II - Structure APIs
 ### Structured API Overview
-- [ ] DataFrames and Datasets
-- [ ] Schemas
-- [ ] Overview of Structured Spark Types
-- - [ ] DataFrames vs Datasets
-- - [ ] Columns
-- - [ ] Rows
-- - [ ] SparkTypes
+- [x] DataFrames and Datasets
+- [x] Schemas
+- [x] Overview of Structured Spark Types
+- - [x] DataFrames vs Datasets
+- - [x] Columns
+- - [x] Rows
+- - [x] SparkTypes
 - Overview of Structured API Execution
-- - [ ] Logical Planning
-- - [ ]  Physical Planning
-- - [ ] Execution
+- - [x] Logical Planning
+- - [x]  Physical Planning
+- - [x] Execution
 
 ### Basic Structured Operations
 - [ ] Schemas
@@ -365,3 +365,46 @@
 - - [ ] Pandas Integration
 
 ### Ecosystem and Community
+
+---
+## Notes
+### Structured API Overview
+__Schemas__<br>
+- defines column names and data types of a dataframe.
+- schemas can be defined manually or inferred automatically (_schema on read_)
+
+__dataframes and datasets__
+- datasets are only available to java-based languages (Scala or Java)
+- dataframes are what all other interpreted languages used. The cool thing about that is that what language used, python or r, the actual work done is spark using the __catalyst__ engine.
+- dataframes make use of Sparks optimized internal format
+
+__spark types__
+To work with correct  Python types, they can be accessed by `from pyspark.sql.types import *`
+some common Python type reference:
+
+Data type | Value type in Python | API
+---|---|---
+ByteType | int 1byte integer -128 to 127 |ByteType()
+LongType | long best practice for integer | LongType()
+FloatType | float | FloatType()
+DoubleType | float | DoubleType()
+DecimalType | decimal.Decimal | DecimalType()
+StringType | string | StringType()
+BinaryType | bytearray | BinaryType()
+BooleanType | bool | BooleanType()
+TimestampType | datetime.datetime | TimestampType()
+DateType | datetime.date | DateType()
+MapType | dict | MapType(keyType, valueType, [valueContainsNull])
+StructType | list or tuple |*StructType(fields). Note: fields is a list of StructFields. Also, fields with the same name are not allowed.
+StructField | The value type in Python of the data type of this field (for example, Int for a StructField with the data type IntegerType) | *StructField(name, dataType, [nullable])
+
+*Note: The default value of nullable is True.
+
+__Overview of Structured API Execution__
+Overview of execution steps<br>
+1. Write DataFrame/Dataset/SQL Code.
+2. If valid code, Spark converts this to a Logical Plan.
+3. Spark transforms this Logical Plan to a Physical Plan, checking for optimizations along the way.
+4. Spark then executes this Physical Plan (RDD manipulations) on the cluster
+
+### Basic Structured Operations
