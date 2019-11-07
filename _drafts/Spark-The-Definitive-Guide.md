@@ -1,6 +1,6 @@
 
 #### Chapter 1 - 4:
-- [x] Overview and light reading
+- [x] Overview and light reading 6/11/2019
 
 ## Section II - Structure APIs
 ### Structured API Overview
@@ -17,22 +17,22 @@
 - - [x] Execution
 
 ### Basic Structured Operations
-- [ ] Schemas
-- [ ]  Columns and Expressions
-- - [ ] Columns
-- - [ ] Expressions
-- [ ] Records and Rows
-- - [ ] Creating Rows
-- [ ] DataFrame transformations
-- - [ ] Creating DataFrames
-- - [ ] select and selectExpr
-- - [ ] Converting to Spark Types (Literals)
-- - [ ] Adding Columns
-- - [ ] Renaming Columns
-- - [ ] Reserved Characters and Keywords
-- - [ ] Case Sensitivity
-- - [ ] Removing Columns
-- - [ ] Changing Column's Type (cast)
+- [x] Schemas
+- [x]  Columns and Expressions
+- - [x] Columns
+- - [x] Expressions
+- [x] Records and Rows
+- - [x] Creating Rows
+- [x] DataFrame transformations
+- - [x] Creating DataFrames
+- - [x] select and selectExpr
+- - [x] Converting to Spark Types (Literals)
+- - [x] Adding Columns
+- - [x] Renaming Columns
+- - [x] Reserved Characters and Keywords
+- - [x] Case Sensitivity
+- - [x] Removing Columns
+- - [x] Changing Column's Type (cast) 7/11/2019
 - - [ ] Filtering Rows
 - - [ ] Getting Unique Rows
 - - [ ] Random Samples
@@ -408,3 +408,170 @@ Overview of execution steps<br>
 4. Spark then executes this Physical Plan (RDD manipulations) on the cluster
 
 ### Basic Structured Operations
+##### schema
+- a `StructType` (Spark's complex types) made up of a number of fields;
+- `StructFields` that have a name, type and boolean flag indicating whether that column can contain null values.
+- optional metadata can be stored with that column.
+- If the typesin the data do match the shema (at runtime), Spark throws an error.
+```Python
+from pyspark.sql.types import StructField, StructType, StringType, LongType
+
+manualSchema = StructType([
+  StructField("Home_country", StringType(), True),
+  StructField("Away_country", StringType(), True),
+  StructField("Score_diff", LongType(), Fasle), metadata={"hello":"world"}
+  ])
+df = spark.read.format("json").schema(manualSchema).load("/data/matches.json")
+```
+
+#### Columns and Expressions
+- Selecting, manipulating and removing columns from a DataFrame are represented as _expressions_
+- Columns are logical constructions that represent a va;ue computed on a per-record basis by means of an expressions.
+- Can't manipulate individual columns outside the context of a DataFrame,
+- Spark transformations must be used within a DataFrame to modify the contents of a column.
+
+To construct and refer to columns:
+```Python
+from spark.sql.functions import col, column
+
+# both are equivilent
+col('aColumnName')
+column('aColumnName')
+```
+
+To explicitly reference a column
+`df.col("aColumnName")`
+
+if `col()` is used, only transformations used on that column referenced.<br>
+using expression, the `expr` function can parse transformations and column references from a string.<br>
+`expr` can be used to refer to a plain column or a string manipulation of a column.
+key points:
+- Columns are just expressions
+- Columns and transformations of those columns compile to the same logical plan as parsed expressions.
+
+```Python
+from pyspark.sql.functions import col, expr
+
+expr("(((someCol + 5) * 200) - 6) < otherCol")
+# equivalent
+(((col("someCol") + 5) * 200) - 6) < col("otherCol")
+```
+
+SQL code and DataFrame code compile to same logical tree before execution, either can be used for exact same performance.
+
+__accessing a DataFrames columns__ <br>
+`df.columns`
+
+#### Records and Rows
+- each row in a DataFrame is a single record,
+- each record is an object of type Row.
+
+__to view first row__<br>
+`df.first()`
+
+Create rows by instantiating `Row` object with values that belong in each column.<br>
+Note: the values have to be in the correct order as the schema of the DataFrame.
+```Python
+from pyspark.sql import Row
+
+myRow = Row("Hello", None, 1, False)
+```
+
+#### DataFrame Transformations
+##### Create  DataFrames
+either from raw sources
+```Python
+df = spark.read.format("json").load("/data/flight-data/json/2015-summary.json")
+df.createOrReplaceTempView("dfTable") # this allows manipulation via SQL
+```
+or manually create:
+```Python
+from pyspark.sql import Row
+from pyspark.sql.types import StructField, StructType, StringType, LongType
+myManualSchema = StructType([  
+  StructField("some", StringType(), True),  
+  StructField("col", StringType(), True),  
+  StructField("names", LongType(), False)
+])
+myRow = Row("Hello", None, 1)
+myDf = spark.createDataFrame([myRow], myManualSchema)
+myDf.show(
+```
+
+##### select and selectExpr
+Allows the equivalent of SQL queries to a DataFrame
+
+easiest way is to use `select` method and pass column names as strings<br>
+`df.select("DEST_COUNTRY_NAME").show(2`
+
+to select multiple columns:<br>
+`df.select("DEST_COUNTRY_NAME", "ORIGIN_COUNTRY_NAME").show(2)`
+
+Columns can be referred to in many ways - but they can't be used interchangeably
+```Python
+from pyspark.sql.functions import expr, col, column
+df.select(    
+  expr("DEST_COUNTRY_NAME"),    
+  col("DEST_COUNTRY_NAME"),    
+  column("DEST_COUNTRY_NAME"))\  
+  .show(2)
+```
+
+`SelectExpr` is shorthand for `select` followed by `expr`.<br>
+Using `selectExpr` you can build up complex expressions that create new DataFrames.<br>
+an example that adds a new column `withinCountry` to the DataFrame:
+```Python
+df.selectExpr(
+  "*", # all original columns
+  "(DEST_COUNTRY_NAME = ORIGIN_COUNTRY_NAME) as withinCountry")\
+  .show(2)
+```
+
+##### Converting to Spark Types (Literals)
+Literals are a translation from a programming language's literal value to one that Spark understands.<br>
+Literals are expressions and can be used in the same way.
+```Python
+from pyspark.sql.functions import lit
+
+df.select(expr("*"), lit(1).alias("One")).show(2)
+```
+is the same in SQL as:
+```sql
+SELECT *, 1 as ONE FROM dfTable LIMIT 2
+```
+
+##### Adding Columns
+more formal way of adding column: `df.withColumn("numberOne", lit(1)).show(2)`<br>
+`withColumn` takes two arguments: the column name and the expression that create the value for that given row in the DataFrame.<br>
+`df.withColumn("withinCountry", expr("ORIGIN_COUNTRY_NAME == DEST_COUNTRY_NAME")).show(2)`
+
+
+##### Renaming columns
+we can rename a column with `withColumn` like: `df.withColumn("DEST_COUNTRY_NAME", expr("dest"))`<br>
+but there is an alternative more explicit method `withColumnRenamed`: `df.withColumnRenamed("DEST_COUNTRY_NAME", "dest")`
+
+##### Reserved Characters and Keywords
+Use backtick (`) to escape column names with spaces or dashes.
+
+##### Removing Columns
+`df.drop("ORIGIN_COUNTRY_NAME")` <br>
+to drop multiple columns: `df.drop("ORIGIN_COUNTRY_NAME", "DEST_COUNTRY_NAME")`
+
+##### Changing a Columns Type (Casting)
+```Python
+df.withColumn("count2", col("count").cast("long"))
+```<br>
+equivalent in sql as
+```SQL
+SELECT *, CAST(count AS long) AS count2 FROM dfTable
+```
+
+##### Filtering Rows
+##### Getting Unique Rows
+##### Random Samples
+##### Random Splits
+##### Concatenating and Appending Rows
+##### Sorting Rows
+##### Limit
+##### Repartition and Coalesce
+##### Collecting Rows to the Driver
