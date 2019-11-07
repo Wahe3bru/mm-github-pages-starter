@@ -95,6 +95,20 @@ db.inventory.find({"status": {"$in": ["OK", "Fault"]}})
 #### dot notation to reach into subfields
 can specify fields deeper than root directory, can be used in query methods and aggregations
 
+Distinct values
+Distinct values given filters
+Filter Arrays using distinct values
+
+Projection
+Sorting
+Indexes
+Limits
+
+Aggregation
+Aggregation operators and Grouping
+Zoom into Array Fields
+$addFields to aid analysis 
+
 ----
 some  considerations
 __To embed or not to embed?__
