@@ -19,3 +19,9 @@ Logical data model
 Physical data model
 ER diagram
 Dimensional modeling
+Star schema
+Snowflake schema
+Fact tables
+Dimension tables
+Normalized
+Denormalized
