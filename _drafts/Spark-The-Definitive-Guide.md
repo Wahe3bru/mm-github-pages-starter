@@ -33,15 +33,15 @@
 - - [x] Case Sensitivity
 - - [x] Removing Columns
 - - [x] Changing Column's Type (cast) 7/11/2019
-- - [ ] Filtering Rows
-- - [ ] Getting Unique Rows
-- - [ ] Random Samples
-- - [ ] Random Splits
-- - [ ] Concatenating and Appending Rows (Union)
-- - [ ] Sorting Rows
-- - [ ]  Limit
-- - [ ] Repartition and Coalesce
-- - [ ] Collecting Rows to the Driver
+- - [x] Filtering Rows
+- - [x] Getting Unique Rows
+- - [x] Random Samples
+- - [x] Random Splits
+- - [x] Concatenating and Appending Rows (Union)
+- - [x] Sorting Rows
+- - [x]  Limit
+- - [x] Repartition and Coalesce
+- - [x] Collecting Rows to the Driver  8/11/2019
 
 ### Working with different types of data
 - [ ] Where to look for APIs
@@ -369,6 +369,7 @@
 ---
 ## Notes
 ### Structured API Overview
+
 __Schemas__<br>
 - defines column names and data types of a dataframe.
 - schemas can be defined manually or inferred automatically (_schema on read_)
@@ -562,16 +563,127 @@ to drop multiple columns: `df.drop("ORIGIN_COUNTRY_NAME", "DEST_COUNTRY_NAME")`
 df.withColumn("count2", col("count").cast("long"))
 ```<br>
 equivalent in sql as
-```SQL
+```sql
 SELECT *, CAST(count AS long) AS count2 FROM dfTable
 ```
 
+
 ##### Filtering Rows
+```Python
+# similar methods
+df.filter(col("count") < 2).show(2)
+df.where("count < 2").show(2)
+```
+```SQL
+-- in SQL
+SELECT * FROM dfTable WHERE count < 2 LIMIT 2
+```
+multiple filters can be in the same expression, but because Spark automatically does all filtering at the same time. So multiple `AND` filter can be chained sequentially.
+```Python
+df.where(col("count") < 3).where(col("ORIGIN_COUNTRY_NAME") != "USA").show(2)
+```
+
+
 ##### Getting Unique Rows
+A transformation that will only return unique rows.
+```Python
+df.select("ORIGIN_COUNTRY_NAME").distinct().count()
+```
+
+
 ##### Random Samples
+similar to Pandas sample method.
+```Python
+seed = 5
+withReplacement = False
+fraction = 0.5
+df.sample(withReplacement, fraction, seed).count()
+```
+
+
 ##### Random Splits
-##### Concatenating and Appending Rows
+Splits the DataFrame into different DataFrames, by setting the weights of each (they should sum to 1.0 otherwise Spark will normalized so they do).<br>
+because they random, a seed should be set.
+```Python
+dataFrames = df.randomSplit(Array([0.75, 0.25]),seed)
+```
+
+
+##### Concatenating and Appending Rows (Union)
+To union 2 DataFrames, they have to have the same schema and same number of columns.
+```Python
+from pyspark.sql import Row
+
+# create a new DataFrame
+schema = df.schema
+newRows = [
+     Row("New Country", "Other Country", 5L),  
+     Row("New Country 2", "Other Country 3", 1L)
+]
+parallelizedRows = spark.sparkContext.parallelize(newRows)
+newDF = spark.createDataFrame(parallelizedRows, schema)
+
+df.union(newDF)\
+    .where("count = 1")\
+    .where(col("ORIGIN_COUNTRY_NAME") != "United States")\
+    .show()
+```
+The new DataFrame reference has to be used to refer to DataFrame with the appended rows. A common way, is to make the DataFrame into a view or register it as a table so it can be reference more dynamically in code.
+
+
 ##### Sorting Rows
+Two equivalent operations `sort` and `orderBy`. Both take column expressions and strings as well as multiple columns. The default is ascending.
+```Python
+df.sort("count").show(5)
+df.orderBy("count", "DEST_COUNTRY_NAME").show()
+df.orderBy(col("count"), col("DEST_COUNTRY_NAME")).show(5)
+```
+to explicitly specify sort direction use `asc` and `desc`
+```Python
+from pyspark.sql.functions import asc, desc
+
+df.orderBy(expr("count desc")).show(2)
+df.orderBy(col("count").desc(), col("DEST_COUNTRY_NAME").asc()).show(2)
+```
+to specify where you want nulls to appear when ordered use: `asc_nulls_first`, `desc_nulls_first`, `asc_nulls_last` or `desc_nulls_last`<br>
+For optimization purpose, it be advisable to sort within each partition (`sortWithinPartitions`) before another set of transformation.
+
+
 ##### Limit
+restrict number of rows extracted
+```Python
+df.limit(5).show()`
+df.orderBy(expr("count desc")).limit(10).show()
+```
+
+
 ##### Repartition and Coalesce
+An important optimization opportunity is to partition dat according to some frequently filtered columns, which control the physical layout of data across the cluster including the partitioning scheme and the number of partitions.
+
+Note: Repartition will incur full shuffle of the data. Therefore repartition is commonly done when the future number of partitions are more than the current number or when partitioning by a set of columns.
+```Python
+df.rdd.getNumPartitions() # returns number of partitions
+
+df.repartition(5)
+```
+
+if filtering by a certain column often, it might be worth repartitioning based on the column. The number of partitions can be optionally specified
+```Python
+df.repartition(col("DEST_COUNTRY_NAME"))
+df.repartition(5, col("DEST_COUNTRY_NAME"))
+```
+
+`coalesce` will not incur a full shuffle, and will combine partitions.
+```Python
+# repartition into 5, then used combine to 2 using coalesce
+df.repartition(5, col("DEST_COUNTRY_NAME")).coalesce(2)
+```
+
+
 ##### Collecting Rows to the Driver
+- `collect()` gets all the data from the entire DataFrame
+- `take` selects the first _N_ rows
+- `show` prints out a number of rows nicely
+
+
+### Working with different types of data
