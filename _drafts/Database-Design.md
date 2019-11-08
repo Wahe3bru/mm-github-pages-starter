@@ -25,3 +25,6 @@ Fact tables
 Dimension tables
 Normalized
 Denormalized
+Database Views
+Grant and Revoke Access
+Materialized Views
