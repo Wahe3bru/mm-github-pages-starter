@@ -28,3 +28,13 @@ Denormalized
 Database Views
 Grant and Revoke Access
 Materialized Views
+Database Roles
+access roles
+GRANT / REVOKE
+Table partitioning
+Vertical partitioning
+horizontal partitioning
+list partition
+range partition
+sharding
+data integration
