@@ -38,3 +38,7 @@ list partition
 range partition
 sharding
 data integration
+Integrity Constraints
+- attribute constraints
+- key constraints
+- referential integrity constraints
