@@ -44,13 +44,13 @@
 - - [x] Collecting Rows to the Driver  8/11/2019
 
 ### Working with different types of data
-- [ ] Where to look for APIs
-- [ ] Converting to SparkTypes
-- [ ] Working with Booleans
-- [ ] Working with Numbers
-- [ ] Working with Strings
-- - [ ] Regular Expressions
-- [ ] Working with Dates and Timestamps
+- [x] Where to look for APIs
+- [x] Converting to SparkTypes
+- [x] Working with Booleans
+- [x] Working with Numbers
+- [x] Working with Strings  11/11/2019
+- - [x] Regular Expressions
+- [x] Working with Dates and Timestamps  12/11/2019
 - [ ] Working with Nulls in data
 - - [ ] Coalesce
 - - [ ] ifnull, nullifm nvl, and nvl2
@@ -687,3 +687,153 @@ df.repartition(5, col("DEST_COUNTRY_NAME")).coalesce(2)
 
 
 ### Working with different types of data
+Where to look for APIs
+##### Converting to SparkTypes
+`Lit` converts another languages type to Spark representation of it
+```Python
+from pyspark.sql.functions import Lit
+df.select(Lit(5), Lit("five"), Lit(5.0))
+```
+##### Working with Booleans
+```from pyspark.sql.functions import col
+df.where(col("InvoiceNo") != 536365)\
+  .select("InvoiceNo", "Description")\
+  .show(5, False)
+```
+Can also be expressed as an expression in a string:
+`df.where("InvoiceNo <> 536365").show(5, False)`<br>
+Boolean expression with multiple parts can be specified using `and` or `or`.
+It's best to always chain together `and` filters as a sequential filter. As spark will
+flatten all the filters into one, and perform the filter at the same time (creating the `and` statement for us).<br>
+`or` statements need to be specified in the same statement.
+```Python
+from pySpark.sql.functions import instr # search chars 'in str', returns 0 if not present
+priceFilter = col("UnitPrice") >600
+descripFilter = instr(df.Description, "POSTAGE") >= 1
+df.where(df.StockCode.isin("DOT")).where(priceFilter | descripFilter).show()
+```
+To filter with a boolean column:
+```Python
+DOTCodeFilter = col("StockCode") == "DOT"
+priceFilter = col("UnitPrice") > 600
+descripFilter = instr(col("Description"), "POSTAGE") >= 1
+df.withColumn("isExpensive", DOTCodeFilter & (priceFilter | descripFilter))\
+  .where("isExpensive")\
+  .select("unitPrice", "isExpensive").show(5)
+```
+the equivalent in SQL:
+```sql
+SELECT UnitPrice, (StockCode == "DOT" AND
+       (UnitPrice > 600 OR instr(Description, "POSTAGE") >= 1)) as isExpensive
+FROM dfTable
+WHERE (StockCode = "DOT" AND
+      (UnitPrice > 600 OR instr(Description, "Postage") >= 1))
+```
+The filter need not be an expression and we can use a column name easily.<br>
+It is easier to express filters as SQL statements that using DataFrame interface.
+```Python
+from pyspark.sql.functions import expr
+df.withColumn("isExpensive", expr("NOT UnitPrice <= 250"))\
+  .where("isExpensive")\
+  .select("Description", "UnitPrice").show(5)
+```
+
+
+##### Working with Numbers
+`from pyspark.sql.functions'
+- 'pow` for `pow(lit(2),3)` 2^3
+- `round` for rounding and `bround` to round down
+- 'corr' for Pearson Correlation
+-  `count`, `mean`, `stddev_pop`, `min`, `max` for summary statistics or `df.describe().show()`
+- `monotonically_increasing_id` generates an increasing unique id starting at 0
+<br>
+There are statistical functions available in the StatFunction package<br>
+```python
+colName = "UnitPrice"
+quantileProbs = [0.5]
+relError = 0.05
+df.stat.approxQuantile("UnitPrice", quantileProbs, relError) # 2.51
+```
+
+
+##### Working with Strings
+- `initcap` capitalizes every word seperated by a space.
+- `lower` and `upper` to change cases of the letters
+- removing white space with:
+```Python
+from pyspark.sql.functions import lit, ltrim, rtrim, rpad, lpad, trim
+df.select(    
+     ltrim(lit("    HELLO    ")).alias("ltrim"),    
+     rtrim(lit("    HELLO    ")).alias("rtrim"),    
+     trim(lit("    HELLO    ")).alias("trim"),    
+     lpad(lit("HELLO"), 3, " ").alias("lp"),    
+     rpad(lit("HELLO"), 10, " ").alias("rp")).show(2)
+```
+* note if `lpad` or `rpad` takes a number less than the length of the string,
+it will always remove values from the right side of the string.
+
+###### Regular Expressions
+Spark uses the complete power of Java Regular Expressions.<br>
+key functions are `regexp_extract` and `regexp_replace`
+
+##### Working with Dates and Timestamps
+- Spark timestamp is till the seconds
+- any smaller meaurement in time is best to try to use `longType`
+
+```python
+from pyspark.sql.functions import current_date, current_timestamp
+dateDF = spark.range(10)\
+    .withColumn("today", current_date())\
+    .withColumn("now", current_timestamp())
+dateDF.createPrReplaceTempView("dateTable")
+```
+To add/subtract days:
+```Python
+from pyspark.sql.functions import date_add, date_sub
+dateDF.select(date_sub(col("today"), 5), date_add(col("today"), 3)).show(1)
+```
+Difference between two dates:
+```Python
+from pyspark.sql.functions import datediff, months_between, to_date
+dateDF.withColumn("week_ago", date_sub(col("today"), 7))\
+  .select(datediff(col("week_ago"), col("today"))).show(1)
+
+dateDf.select(
+    to_date(lit("2016-01-01")).alias("start"),    
+    to_date(lit("2017-05-22")).alias("end"))\
+  .select(months_between(col("start"), col("end"))).show(1))
+)
+```
+`to_date` converts a string to a date, with optional specified format.
+__note:__ Spark will return `null` if it can't parse the date - without throwing error!
+The date format should be according the Java `SimpleDateFormat` standard of `yyyy-MM-dd`
+
+convert to date or datetime (latter requires format):
+```Python
+from pyspark.sql.functions import to_date, to_timestamp
+dateFormat = "yyyy-dd-MM"
+cleanDateDF = spark.range(1).select(    
+    to_date(lit("2017-12-11"), dateFormat).alias("date"),    
+    to_date(lit("2017-20-12"), dateFormat).alias("date2"))
+cleanDateDF.createOrReplaceTempView("dateTable2")
+
+cleanDateDF.select(to_timestamp(col("date"), dateFormat)).show()
+```
+
+##### Working with Nulls in data
+- - [ ] Coalesce
+- - [ ] ifnull, nullifm nvl, and nvl2
+- - [ ] drop
+- - [ ] fill
+- - [ ] replace
+##### Ordering
+##### Working with Complex Types
+- - [ ] Structs
+- - [ ] Arrays
+- - [ ] split
+- - [ ] Array Length
+- - [ ] array_contains
+- - [ ] explode
+- - [ ] Maps
+##### Working with JSON
+##### User-Defined Functions
