@@ -42,3 +42,7 @@ Integrity Constraints
 - attribute constraints
 - key constraints
 - referential integrity constraints
+Primary key
+Surrogate key
+Foreign key
+Referential integrity
