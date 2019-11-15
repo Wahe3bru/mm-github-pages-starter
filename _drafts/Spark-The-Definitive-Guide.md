@@ -51,13 +51,13 @@
 - [x] Working with Strings  11/11/2019
 - - [x] Regular Expressions
 - [x] Working with Dates and Timestamps  12/11/2019
-- [ ] Working with Nulls in data
-- - [ ] Coalesce
-- - [ ] ifnull, nullifm nvl, and nvl2
-- - [ ] drop
-- - [ ] fill
-- - [ ] replace
-- [ ] Ordering
+- [x] Working with Nulls in data
+- - [x] Coalesce
+- - [x] ifnull, nullifm nvl, and nvl2
+- - [x] drop
+- - [x] fill
+- - [x] replace
+- [x] Ordering  14/11/2019
 - [ ] Working with Complex Types
 - - [ ] Structs
 - - [ ] Arrays
@@ -776,6 +776,7 @@ it will always remove values from the right side of the string.
 Spark uses the complete power of Java Regular Expressions.<br>
 key functions are `regexp_extract` and `regexp_replace`
 
+
 ##### Working with Dates and Timestamps
 - Spark timestamp is till the seconds
 - any smaller meaurement in time is best to try to use `longType`
@@ -820,13 +821,26 @@ cleanDateDF.createOrReplaceTempView("dateTable2")
 cleanDateDF.select(to_timestamp(col("date"), dateFormat)).show()
 ```
 
+
 ##### Working with Nulls in data
-- - [ ] Coalesce
-- - [ ] ifnull, nullifm nvl, and nvl2
-- - [ ] drop
-- - [ ] fill
-- - [ ] replace
+- `Coalesce` returns the first non-null value
+- `ifnull` returns second value if 1st is null, defaults to first
+- `nullif` returns null if two values are equal, otherwise returns the second value.
+- `nvl` returns 2nd value if 1st is null, defaults to the first value.
+- `nvl2` returns the 2nd value if the 1st is not null, otherwise will return the last specified value.
+- drop `df.na.drop("all")` will drop row if all values are null or NaN, the default is "any". can be applied to a subset of columns
+- fill: using a Scala Map we can fill in values for columns
+  ```Python
+  fill_cols_vals = {"StockCode": 5, "Description" : "No Value"}
+  df.na.fill(fill_cols_vals)
+  ```
+- replace `df.na.replace([""], ["UNKNOWN"], "Description")` the only requirement to replacing values is that they have to be replaced with the same type.
+
+
 ##### Ordering
+using  `asc_nulls_first`, `desc_nulls_first`, `asc_nulls_last`, or `desc_nulls_last` to dictate where you want nulls to appear in the DataFrame.
+
+
 ##### Working with Complex Types
 - - [ ] Structs
 - - [ ] Arrays
