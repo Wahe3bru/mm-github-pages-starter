@@ -47,5 +47,5 @@ WHERE
   AND
     plays >= @listened
 -- save into temp table
-INTO fave_artist_temp_table 
+INTO fave_artist_temp_table
 ```
