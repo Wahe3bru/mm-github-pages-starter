@@ -32,7 +32,7 @@ WHERE
 create variable: `DECLARE @test_int INT` or `DECLARE @my_artist(VARCHAR(100))`
 assign value to variable: `SET @test_int = 5` or `SET @my_artist = 'Lupe Fiasco'`
 
-variables must start with `@` followed by data type.
+variables must start with `@` followed by data type.<br>
 __variable datatypes__
 - `VARCHAR(n)`
 - `INT`
@@ -45,7 +45,8 @@ DECLARE @my_artist VARCHAR(50)
 DECLARE @listened INT
 
 SET @my_artist = 'Lupe Fiasco'
-SET @listened = 20
+-- alternatively, can use SELECT
+SELECT @listened = 20
 
 SELECT
     track_name, album
@@ -74,6 +75,9 @@ WHILE @counter < 30
 -- Loop code starting point
 BEGIN
 	SELECT @counter = @counter + 1
+  -- if @counter reaches 27 break out of loop
+  IF @counter = 27
+      BREAK
 -- Loop finish
 END
 -- Check the value of the variable
