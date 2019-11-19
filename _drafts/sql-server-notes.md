@@ -113,3 +113,44 @@ FROM Kidney a
 JOIN BloodGlucoseRandom b
 ON a.BloodGlucoseRandom = b.MaxGlucose
 ```
+
+### Window Functions
+Allows aggregations to be created at the same time as the window.<br>
+Window syntax in T-SQL
+- Create window with `OVER` clause
+- `PARTITION BY` creates the frame
+- - if left out frame is the entire table
+- `ORDER BY` to arrange results
+```SQL
+SELECT OrderID, TerritoryName,
+       -- Total price for each partition
+       SUM(OrderPrice)
+       -- Create the window and partitions
+       OVER(PARTITION BY TerritoryName) AS TotalPrice
+FROM Orders
+```
+#### Common Window functions
+`ORDER BY` must be used to get the correct value for these functions
+- `FIRST_VALUE`
+```SQL
+SELECT Area, OrderDate
+       -- select first value in each partition
+       FIRST_VALUE(OrderDate)
+       OVER(PARTITION BY Area ORDER BY OrderDate) AS FirstOrder
+FROM Orders
+```
+- `LAST_VALUE`
+- `LEAD`
+- `LAG`
+```sql
+SELECT TerritoryName, OrderDate,
+       -- Specify the previous OrderDate in the window
+       LAG(OrderDate)
+       -- Over the window, partition by territory & order by order date
+       OVER(PARTITION BY TerritoryName ORDER BY OrderDate) AS PreviousOrder,
+       -- Specify the next OrderDate in the window
+       LEAD(OrderDate)
+       -- Create the partitions and arrange the rows
+       OVER(PARTITION BY TerritoryName ORDER BY OrderDate) AS NextOrder
+FROM Orders
+```
