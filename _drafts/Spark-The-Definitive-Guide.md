@@ -1,6 +1,6 @@
 
 #### Chapter 1 - 4:
-- [x] Overview and light reading 6/11/2019
+- [x] Overview and light reading                        6/11/2019
 
 ## Section II - Structure APIs
 ### Structured API Overview
@@ -32,7 +32,7 @@
 - - [x] Reserved Characters and Keywords
 - - [x] Case Sensitivity
 - - [x] Removing Columns
-- - [x] Changing Column's Type (cast) 7/11/2019
+- - [x] Changing Column's Type (cast)                      7/11/2019
 - - [x] Filtering Rows
 - - [x] Getting Unique Rows
 - - [x] Random Samples
@@ -41,23 +41,23 @@
 - - [x] Sorting Rows
 - - [x]  Limit
 - - [x] Repartition and Coalesce
-- - [x] Collecting Rows to the Driver  8/11/2019
+- - [x] Collecting Rows to the Driver                       8/11/2019
 
 ### Working with different types of data
 - [x] Where to look for APIs
 - [x] Converting to SparkTypes
 - [x] Working with Booleans
 - [x] Working with Numbers
-- [x] Working with Strings  11/11/2019
+- [x] Working with Strings                                   11/11/2019
 - - [x] Regular Expressions
-- [x] Working with Dates and Timestamps  12/11/2019
+- [x] Working with Dates and Timestamps                      12/11/2019
 - [x] Working with Nulls in data
 - - [x] Coalesce
 - - [x] ifnull, nullifm nvl, and nvl2
 - - [x] drop
 - - [x] fill
 - - [x] replace
-- [x] Ordering  14/11/2019
+- [x] Ordering                                                14/11/2019
 - [ ] Working with Complex Types
 - - [ ] Structs
 - - [ ] Arrays
@@ -67,7 +67,7 @@
 - - [ ] explode
 - - [ ] Maps
 - [ ] Working with JSON
-- [ ] User-Defined Functions
+- [x] User-Defined Functions                                   20/11/2019
 
 ### Aggregations
 - [ ] Aggregations Functions
@@ -399,7 +399,7 @@ MapType | dict | MapType(keyType, valueType, [valueContainsNull])
 StructType | list or tuple |*StructType(fields). Note: fields is a list of StructFields. Also, fields with the same name are not allowed.
 StructField | The value type in Python of the data type of this field (for example, Int for a StructField with the data type IntegerType) | *StructField(name, dataType, [nullable])
 
-*Note: The default value of nullable is True.
+Note: The default value of nullable is True.
 
 __Overview of Structured API Execution__
 Overview of execution steps<br>
@@ -413,7 +413,8 @@ Overview of execution steps<br>
 - a `StructType` (Spark's complex types) made up of a number of fields;
 - `StructFields` that have a name, type and boolean flag indicating whether that column can contain null values.
 - optional metadata can be stored with that column.
-- If the typesin the data do match the shema (at runtime), Spark throws an error.
+- If the types in the data do match the shcema (at runtime), Spark throws an error.
+
 ```Python
 from pyspark.sql.types import StructField, StructType, StringType, LongType
 
@@ -850,4 +851,81 @@ using  `asc_nulls_first`, `desc_nulls_first`, `asc_nulls_last`, or `desc_nulls_l
 - - [ ] explode
 - - [ ] Maps
 ##### Working with JSON
-##### User-Defined Functions
+##### User-Defined Functions (UDF)
+- functions written by user to preform specific transformations.
+- can be written in any language
+- - but performance considerations
+- best to write functions in Scala
+- once UDF is registered in Spark, can be used in SparkSQL as well
+- optional, but best pratice to define return type when registering udf
+
+```Scala
+// in Scala
+val udfExampleDF = spark.range(5).toDF("num")
+def power3(number:Double):Double = number * number * number
+power3(2.0)
+
+//register udf in Spark
+import org.apache.spark.sql.functions.udf
+val power3udf = udf(power3(_:Double):Double)
+
+//can be used like any other spark function
+udfExampleDF.select(power3udf(col("num"))).show()
+
+// power3udf can be used only as DataFrame function.
+// Registering function as SparkSQL function makes it usable within SQL as well as across languages
+
+spark.udf.reister("power3", power3(_:Double):Double)
+udfExampleDF.selectExpr("power3(num)").show()
+```
+
+
+### Aggregations
+#### Aggregations Functions
+##### count
+- if used as an action, eagerly evaluated `df.count()`, or
+- transformation, specifying a specific column, or all
+##### countDistinct
+- count the number of unique groups
+##### approx_count_distict
+`pprox_count_distinct(<column>, <err>)`
+- used on large datasets where the exact distinct count is not important, and  an approximate will do
+- performance gain
+- `<err>`: maximum estimation error parameter
+##### first and last
+- based on the rows of a dataframe
+##### min and max
+- extraxt minimum and maximum values.
+##### sum
+- add all the values
+##### sumDisctint
+- sum a distinct set of values.
+##### avg
+```python
+from pyspark.sql.functions import sum, count, avg, expr
+df.select(
+    count("Quantity").alias("total_transactions"),    sum("Quantity").alias("total_purchases"),    avg("Quantity").alias("avg_purchases"),    expr("mean(Quantity)").alias("mean_purchases"))\
+  .selectExpr(
+      "total_purchases/total_transactions",    "avg_purchases",    "mean_purchases").show()
+```
+##### Variance and Standard Deviation
+- spark has both sample and population variance and standard deviation
+```Python
+from pyspark.sql.functions import var_pop, stddev_pop
+from pyspark.sql.functions import var_samp, stddev_samp
+df.select(var_pop("Quantity"), var_samp("Quantity"),
+          stddev_pop("Quantity"), stddev_samp("Quantity")).show()
+```
+##### skewness and kurtosis
+##### Covariance and Correlation
+##### Aggregating to Complex Types
+#### Grouping
+##### Grouping with Expressions
+##### Grouping with Maps
+#### Window Functions
+#### Grouping Sets
+##### Rollups
+##### Cube
+##### Grouping Metadata
+##### Pivot
+#### User-Defined Aggregation Functions
