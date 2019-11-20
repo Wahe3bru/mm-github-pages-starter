@@ -67,25 +67,25 @@
 - - [ ] explode
 - - [ ] Maps
 - [ ] Working with JSON
-- [x] User-Defined Functions                                   20/11/2019
+- [x] User-Defined Functions
 
 ### Aggregations
-- [ ] Aggregations Functions
-- - [ ] count
-- - [ ] countDistinct
-- - [ ] approx_count_distict
-- - [ ] first and last
-- - [ ] min and max
-- - [ ] sum
-- - [ ] sumDisctint
-- - [ ] avg
-- - [ ] Variance and Standard Deviation
-- - [ ] skewness and kurtosis
-- - [ ] Covariance and Correlation
-- - [ ] Aggregating to Complex Types
-- [ ] Grouping
-- - [ ] Grouping with Expressions
-- - [ ] Grouping with Maps
+- [x] Aggregations Functions
+- - [x] count
+- - [x] countDistinct
+- - [x] approx_count_distict
+- - [x] first and last
+- - [x] min and max
+- - [x] sum
+- - [x] sumDisctint
+- - [x] avg
+- - [x] Variance and Standard Deviation
+- - [x] skewness and kurtosis
+- - [x] Covariance and Correlation
+- - [x] Aggregating to Complex Types
+- [x] Grouping
+- - [x] Grouping with Expressions
+- - [x] Grouping with Maps                                 20/11/2019
 - [ ] Window Functions
 - [ ] Grouping Sets
 - - [ ] Rollups
@@ -402,7 +402,7 @@ StructField | The value type in Python of the data type of this field (for examp
 Note: The default value of nullable is True.
 
 __Overview of Structured API Execution__
-Overview of execution steps<br>
+Overview of execution steps
 1. Write DataFrame/Dataset/SQL Code.
 2. If valid code, Spark converts this to a Logical Plan.
 3. Spark transforms this Logical Plan to a Physical Plan, checking for optimizations along the way.
@@ -917,11 +917,41 @@ df.select(var_pop("Quantity"), var_samp("Quantity"),
           stddev_pop("Quantity"), stddev_samp("Quantity")).show()
 ```
 ##### skewness and kurtosis
+- measurements of extreme points in the data
+- - skewness: asymetry of the values in data around the mean
+- - kurtosis: measure of the tail of the data
 ##### Covariance and Correlation
+- covariance has a population and sample formula
+```Python
+from pyspark.sql.functions import corr, covar_pop, covar_samp df.select(covar_pop("InvoiceNo", "Quantity"), covar_samp("InvoiceNo", "Quantity"),
+          corr("InvoiceNo", "Quantity")).show()
+```
 ##### Aggregating to Complex Types
+In spark you can also perform aggregations on complex types.
+For example, we can collect a list of values present in a given column or only the unique values by collexting to a set.
+```Python
+from pyspark.sql.functions import collect_set, collect_list
+df.agg(collect_set("Country"), collect_list("Country")).show()
+```
 #### Grouping
+Grouping happens in two phases; first `RelationalGroupedDataset`, then second step returns a `DataFrame`<br>
+`df.groupBy("InvoiceNo", "CustomerId").count().show()`
 ##### Grouping with Expressions
+Rather than specifying in `Select` statement, it's easier to specify within `agg`.<br>
+This makes possible to pass in arbitrary expressions that need some aggregation specified. `alias` a column after transforming it for use in the data flow
+```Python
+from pyspark.sql.functions import count
+df.groupBy("InvoiceNo").agg(
+     count("Quantity").alias("quan"),
+     expr("count(Quantity)")).show()
+)
+```
 ##### Grouping with Maps
+Sometime easier to specify tranformations as a series of `maps`; key is the columns, and value is the aggregation function (as a string). You can reuse multiple column names if specified inline.
+```Python
+df.groupBy("InvoiceNo").agg(expr("avg(Quantity)"), expr("stddev_pop(Quantity)"))\
+.show()
+```
 #### Window Functions
 #### Grouping Sets
 ##### Rollups
