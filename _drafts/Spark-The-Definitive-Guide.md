@@ -86,13 +86,13 @@
 - [x] Grouping
 - - [x] Grouping with Expressions
 - - [x] Grouping with Maps                                 20/11/2019
-- [ ] Window Functions
-- [ ] Grouping Sets
-- - [ ] Rollups
-- - [ ] Cube
-- - [ ] Grouping Metadata
-- - [ ] Pivot
-- [ ] User-Defined Aggregation Functions
+- [x] Window Functions
+- [x] Grouping Sets
+- - [x] Rollups
+- - [x] Cube
+- - [x] Grouping Metadata
+- - [x] Pivot
+- [x] User-Defined Aggregation Functions                    21/11/2019
 
 ### Joins
 - [ ] Join Expressions
@@ -953,9 +953,101 @@ df.groupBy("InvoiceNo").agg(expr("avg(Quantity)"), expr("stddev_pop(Quantity)"))
 .show()
 ```
 #### Window Functions
+first create a window specification, the frame specification (`rowsBetween`) states which rows to be included in the frame based on its reference to the current row.<br>
+In this example, all previous rows are included.
+```Python
+from pyspark.sql.window import Window
+from pyspark.sql.funtions import desc
+windowSpec = Window\
+              .partitionBy("CustomerId", "date")\
+              .orderBy(desc("Quantity"))\
+              .rowsBetween(Window.unboundedPreceding, Window.current_row)
+```
+We can use an aggregation function passing in column name or expression, and indicate the window specification that defines to which frames of the data the function applies to.
+```python
+from pyspark.sql.functions import max
+maxPurchaseQuantity = max(col("Quantity")).over(windowSpec)
+```
+The result is a column or expression, which can be used in a DataFrame select statement.<br>
+To calculate maximum quantity purchased for every customer, `dense_rank` can be used to avoid gaps in the ranking sequence when there are tied values (or duplicate rows).
+```Python
+from pyspark.sql.functions import dense_rank, rank
+purchaseDenseRank = dense_rank().over(windowSpec)
+purchaseRank = rank().over(windowSpec)
+```
+A select can be performed to view the calculated window values.
+```Python
+from pyspark.sql.functions import col
+
+dfWithDate.where("Customer IS NOT NULL").orderBy("CustomerId")\
+  .select(
+    col("CustomerId"),
+    col("date"),
+    col("Quantity"),
+    purchaseRank.alias("quantityRank"),
+    purchaseDenseRank.alias("quantityDenseRank"),
+    maxPurchaseQuantity.alias("maxPurchaseQuantity")
+  ).show()
+```
+
+which is the equivalent in SQL to:
+```sql
+SELECT CustomerId, date, Quantity,
+  rank(Quantity) OVER (PARTITION BY CustomerId, date
+                       ORDER BY Quantity DESC NULLS LAST
+                        ROWS BETWEEN
+                          UNBOUNDED PRECEDING AND
+                          CURRENT ROW) as rank,
+  dense_rank(Quantity) OVER (PARTITION BY CustomerId, date
+                            ORDER BY Quantity DESC NULLS LAST
+                            ROWS BETWEEN
+                              UNBOUNDED PRECEDING AND
+                              CURRENT ROW) as dRank,
+  max(Quantity) OVER (PARTITION BY CustomerId, date
+                      ORDER BY Quantity DESC NULLS LAST
+                      ROWS BETWEEN
+                        UNBOUNDED PRECEDING AND
+                        CURRENT ROW) as maxPurchase
+FROM dfWithDate
+WHERE CustomerId IS NOT NULL ORDER BY CustomerId
+```
+
+
 #### Grouping Sets
+- a low-level tool for combining sets of aggregations together.
+- ability to create arbitrary aggregation in their group-by statements.
+The GROUPING SETS operator is only available in SQL. To perform the same in DataFrames, you use the rollup and cube operators—which allow us to get the same results
+
 ##### Rollups
+A rollup is a multidimensional aggregation that performs a variety of group-by style calculations.<br>
+example: Rollup that looks across time(`date`) and space(`Country`) and creates a DataFrame that includes the grand total over all the dates, the grand total for each date, and the subtotal for each country on each date in the DataFrame.
+```Python
+rolledUpDf = dfNoNull.rollup("Date", "Country").agg(sum("Quantity"))\
+  .selectExpr("Date", "Country", "`sum(Quantity)` as total_quantity")\
+  .orderBy("Date")
+rolledUpDf.show()
+```
+null values is where you’ll find the grand totals. A null in both rollup columns specifies the grand total across both of those columns.
+
 ##### Cube
+A cube takes a rollup a level deeper.  Rather than treating elements hierarchically, a cube does the same thing across all dimensions.
+```Python
+from pyspark.sql.functions import sum
+
+dfNoNull.cube("Date", "Country").agg(sum(col("Quantity")))\
+    .select("Date", "Country", "sum(Quantity)").orderBy("Date").show()
+```
+This is a quick and easily accessible summary of nearly all of the information in our table, and it’s a great way to create a quick summary table that others can use later on.
+
 ##### Grouping Metadata
+
 ##### Pivot
+Converts a row into a column.
+```Python
+pivoted = dfWithDate.groupBy("date").pivot("Country").sum()
+```
+This DataFrame will vabe a column for every combination of country, numeriv variable and a date column.<br>
+It can be useful, if you have low enough cardinality in a certain column to transform it into columns so that users can see the schema and immediately know what to query for.
+
 #### User-Defined Aggregation Functions
+UDAFs are currently available only in Scala or Java
