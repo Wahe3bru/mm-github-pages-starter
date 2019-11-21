@@ -1,5 +1,6 @@
 
 ## Downloading data
+https://csvkit.readthedocs.io/
 ### Downloading data using curl
 syntax: curl [option flags] [URL]<br>
 URL is required. `curl` also supports `HTTP`, `HTTPS`, `FTP` and `SFTP`
@@ -83,7 +84,7 @@ Note: names are in "double quotes" and multiple columns are seperated by a comma
 filters by row using exact match or regex fuzzy matching<br>
 must be paired with on of these options:
 - `-m` exact row value to filter
-- `-r` regex pattern
+- `-r` regex pattern `csvgrep -c phone_number -r "555-555-\d{4}" data.csv > new.csv`
 - `-f` path to file
 
 ### csvstack - stacking multiple csv files.
