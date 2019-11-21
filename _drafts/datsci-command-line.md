@@ -70,3 +70,81 @@ csvlook SpotifyData.csv
 
 # Print stats
 ```
+### csvcut - filter columns
+to print the list of headers in a file
+- `csvcut -n <filename.csv>`
+
+return columns by position or name
+- `csvcut -c "track_id","name","album" songs.csv`
+- `csvcut -c 1,3,4 songs.csv`
+Note: names are in "double quotes" and multiple columns are seperated by a comma with no spaces.
+
+### csvgrep - filter data by row
+filters by row using exact match or regex fuzzy matching<br>
+must be paired with on of these options:
+- `-m` exact row value to filter
+- `-r` regex pattern
+- `-f` path to file
+
+### csvstack - stacking multiple csv files.
+`csvstack file1.csv file2.csv > appendedfile.csv`
+to know source of each row use `-g` with identifier for each source (in order of stacking)
+- `csvstack -g "source1","source2" file1.csv file2.csv > appendedfile.csv`
+- creates another column named "group" with each value identifying the source
+To rename the "group" column heading:
+- `csvstack -g "source1","source2" -n "source" file1.csv file2.csv > appendedfile.csv`
+### chaining commands using operators
+- `;`: runs commands sequentially
+- - `csvlook file1.csv; csvlook file2.csv`
+- `&&`: only run secnod command if first is successful
+- - `csvlook file13.csv && csvstat file13.csv`
+- `|`: 'pipe' output of first command as input to second commmand
+- - `csvcut -c 1,3,4,7 file23.csv | csvlook`
+- `>` save output of previous command to file
+- - csvsort -c 2 file47.csv | head -n 15 > file47_Top15.csv
+
+
+## Pulling data from command line
+### sql2csv
+syntax:
+```bash
+sql2csv --db "sqlite:///201812SpotifyDatabase.db" \
+        --query "SELECT * FROM song_popularity" \
+        > Spotify_song_Popularity.csv
+```
+- The db connection is dependent on the type of  database
+- The query string (SQL command) has to be on one line, regardless of length
+- not redirecting to file will print results in the terminal
+
+
+### csvsql
+- applies SQL statements to one or more csv files
+- creates an in-memory SQL database that temporarily hosts file being processed
+- therefore suatable for small to medium file sizes only
+- SQL query must be written in one line
+- file is referenced as a table (without the extensions)
+- the file given must be pathed relative to working directory
+- if using multiple files (via joins), the files must e listed in order of appearance in SQL
+```bash
+# query csv file using SQL syntax
+csvsql --query "SELECT * FROM file1 ORDER BY col3 LIMIT 3" \
+      file1.csv | csvlook
+
+# using multiple files by join
+csvsql --query query "SELECT * FROM file1 ORDER BY col3 LIMIT 3" \
+       file1.csv file5.csv > joinedFile.csv
+```
+SQL queries can be long and complex. Another way is to save the query in a shell variable, then pass the variable in place of writing out statement in full.<br>
+leads to less errors and easy readability
+```bash
+sqlquery="SELECT * FROM file1 ORDER BY col3 LIMIT 3"
+csvsql --query "$sqlquery" file1.csv | csvlook
+```
+
+## pushing data back to database
+using `csvsql` you can insert data into db
+- `--db sqlite:///databse.db` important
+- `--insert filename.csv` the insert flag will create table and insert data also infer shema type of table
+- optional flags:
+- - `--no-inference` data type will not be inferred and all data will be uploaded as strings
+- - `--no-constraints` generate shema with no length limits or null checks
