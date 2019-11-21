@@ -179,6 +179,10 @@
 - [ ] Miscellaneous Features
 - - [ ] Configurations
 - - [ ] Setting Configuration Values in SQL
+### Datasets
+### Resilient Distributed Datasets (RDDs)
+### Advanced RDDs 
+### Distributed Shared Variables
 
 ## Section IV - Production Applications
 ### How Spark Runs on a Cluster
