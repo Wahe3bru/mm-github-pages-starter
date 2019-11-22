@@ -23,6 +23,9 @@ tags:
 #notes - smart notes, atomic ideas from readings, summarized in my own words.
 #garden - ideas/plans/notes on garden
 #home - ideas for improving the house
+#study
+#hobby
+#work
 more to add
 
 Since I need to be more organised, I have started tracking my online reading via instapaper and IFTT, which records the articles added and/or liked in gsheets.
