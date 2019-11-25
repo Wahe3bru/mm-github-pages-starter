@@ -166,19 +166,19 @@
 - [x] Views
 - - [x] Creating Views
 - - [x] Dropping Views
-- [ ] Databases
-- - [ ] Creating Databases
-- - [ ] Setting the Database
-- - [ ] Dropping Databases
-- [ ] Select Statements
-- - [ ] case…when…then Statements
-- [ ] Advanced Topics
-- - [ ] Complex Types
-- - [ ] Functions
-- - [ ] Subqueries
-- [ ] Miscellaneous Features
-- - [ ] Configurations
-- - [ ] Setting Configuration Values in SQL
+- [x] Databases
+- - [x] Creating Databases
+- - [x] Setting the Database
+- - [x] Dropping Databases
+- [x] Select Statements
+- - [x] case…when…then Statements
+- [x] Advanced Topics
+- - [x] Complex Types
+- - [x] Functions
+- - [x] Subqueries
+- [x] Miscellaneous Features
+- - [x] Configurations
+- - [x] Setting Configuration Values in SQL
 
 ### Datasets
 ### Resilient Distributed Datasets (RDDs)
@@ -1232,7 +1232,7 @@ spark.sql("""
 ```
 can overwrite if one already exists
 ```python
-spark.sql(""")
+spark.sql("""
 CREATE OR REPLACE GLOBAL VIEW temp_name AS
   SELECT * FROM flights WHERE DEST_COUNTRY_NAME = "US"
 """)
@@ -1242,16 +1242,79 @@ Global temp views are resolved regardless of database and viewable across entire
 - dropping a view removes only the definition itself, not the underlying data
 `DROP VIEW IF EXISTS temp_view_name`
 #### Databases
-
+- tool for organising tables
+- any SQL statement (including DataFrame commands) execute within the context of a database.
+- if you change databse, any user-defined tables will remain in the previous database and will need to be queried differently.
+- `SHOW DATABASES` see all databases
 ##### Creating Databases
+`CREATE DATABASE some_db`
 ##### Setting the Database
+- set a databse to perform certain query: `USE some_db`
+- afterwards, all queries will resolve table names to this database.
+- query different database by using correct prefix: `SELECT * FROM default.flights`
+- see current database using: `SELECT current_database()`
 ##### Dropping Databases
+`DROP DATBASE IF EXISTS some_db;`
 #### Select Statements
+follows ANSI SQL
 ##### case…when…then Statements
+like programmatic `if` statements
+```python
+spark.sql("""
+  SELECT
+    CASE WHEN DEST_COUNTRY_NAME = "UNITED STATES" THEN 1
+         WHEN DEST_COUNTRY_NAME = "EGYPT" THEN 0
+         ELSE -1
+    END
+  FROM partitioned_flights
+""")
+```
 #### Advanced Topics
 ##### Complex Types
+- powerful that doesn't exist in standard SQL
+- structs, lists and maps.
+###### Structs
+- more akin to maps
+- provide a way of creating or querying nested data in Spark
+- create one by wrapping set of columns (or expressions) in parenthesis
+```sql
+CREATE VIEW IF NOT EXISTS nested_data AS
+  SELECT (DEST_COUNTRY_NAME, ORIGIN_COUNTRY_NAME) as country, count
+  FROM flights
+```
+- query individual columns within a struct using dot syntax
+`SELECT country.DEST_COUNTRY_NAME, count from nested_data`
+- select all (sub)columns from struct
+`SELECT country.*, count FROM nested_data`
+###### Lists
+- `collect_list` creates a list of values.
+- `collect_set` creates array without duplicate values.
+- These are both aggregation functions and therefore can only be specified in aggregations.
+```spark.sql("""
+    SELECT DEST_COUNTRY_NAME as new_name, collect_list(count) as flight_counts,
+      collect_set(ORIGIN_COUNTRY_NAME) as origin_set
+    FROM flights GROUP BY DEST_COUNTRY_NAME
+""")
+```
+- manually create array within column
+`SELECT DEST_COUNTRY_NAME`, ARRAY(1,2,3) FROM flights
+- query lists by position (zero-indexed)
+`SELECT DEST_COUNTRY_NAME as new_name, collect_list(count)[0] FROM flights GROUP BY DEST_COUNTRY_NAME`
 ##### Functions
+- Spark SQL provides variety of sophisticated functions
+- `SHOW FUNCTIONS` list of functions in Spark SQL
+- `SHOW SYSTEM FUNCTIONS` see builtin functions
+- `SHOW USER FUNCTIONS` see user-defined functions
+- filter `SHOW` commands
+- - list functions that start with 'S' `SHOW FUNCTIONS "s*"`
 ##### Subqueries
+###### Uncorrelated predicate subqueries
+- do not include information from the outer scope of the query. a query you can run on its own
+###### Correlated predicate subqueries
+- use information from the outer scope in the inner query
+###### Uncorrelated scalar queries
+used to bring in supplemental information not had previously.
 #### Miscellaneous Features
 ##### Configurations
 ##### Setting Configuration Values in SQL
+`SET spark.sql.shuffle.partitions=20`
