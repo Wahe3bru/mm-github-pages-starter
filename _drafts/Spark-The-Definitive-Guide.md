@@ -178,7 +178,7 @@
 - - [x] Subqueries
 - [x] Miscellaneous Features
 - - [x] Configurations
-- - [x] Setting Configuration Values in SQL
+- - [x] Setting Configuration Values in SQL               25/11/2019
 
 ### Datasets
 ### Resilient Distributed Datasets (RDDs)
