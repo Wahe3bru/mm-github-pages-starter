@@ -146,26 +146,26 @@
 - - [ ] Managing File Size
 
 ### Spark SQL
-- [ ] Big Data and SQL: Apache Hive
-- [ ] Big Data and SQL: Spark SQL
-- - [ ] Spark’s Relationship to Hive
-- [ ] How to Run Spark SQL Queries
-- - [ ] Spark SQL CLI
-- - [ ] Spark’s Programmatic SQL Interface
-- - [ ] SparkSQL Thrift JDBC/ODBC Server
-- [ ] Catalog
-- [ ] Tables
-- - [ ] Spark-Managed Tables
-- - [ ] Creating Tables
-- - [ ] Creating External Tables
-- - [ ] Inserting into Tables
-- - [ ] Describing Table Metadata
-- - [ ] Refreshing Table Metadata
-- - [ ] Dropping Tables
-- - [ ] Caching Tables
-- [ ] Views
-- - [ ] Creating Views
-- - [ ] Dropping Views
+- [x] Big Data and SQL: Apache Hive
+- [x] Big Data and SQL: Spark SQL
+- - [x] Spark’s Relationship to Hive
+- [x] How to Run Spark SQL Queries
+- - [x] Spark SQL CLI
+- - [x] Spark’s Programmatic SQL Interface
+- - [x] SparkSQL Thrift JDBC/ODBC Server
+- [x] Catalog
+- [x] Tables
+- - [x] Spark-Managed Tables
+- - [x] Creating Tables
+- - [x] Creating External Tables
+- - [x] Inserting into Tables
+- - [x] Describing Table Metadata
+- - [x] Refreshing Table Metadata
+- - [x] Dropping Tables
+- - [x] Caching Tables
+- [x] Views
+- - [x] Creating Views
+- - [x] Dropping Views
 - [ ] Databases
 - - [ ] Creating Databases
 - - [ ] Setting the Database
@@ -179,9 +179,10 @@
 - [ ] Miscellaneous Features
 - - [ ] Configurations
 - - [ ] Setting Configuration Values in SQL
+
 ### Datasets
 ### Resilient Distributed Datasets (RDDs)
-### Advanced RDDs 
+### Advanced RDDs
 ### Distributed Shared Variables
 
 ## Section IV - Production Applications
@@ -1055,3 +1056,202 @@ It can be useful, if you have low enough cardinality in a certain column to tran
 
 #### User-Defined Aggregation Functions
 UDAFs are currently available only in Scala or Java
+
+
+### Joins
+#### Join Expressions
+#### Join Types
+#### Inner Joins
+#### Outer Joins
+#### Left Outer Joins
+#### Right Outer Joins
+#### Left Semi Joins
+#### Left Anti Joins
+#### Natural Joins
+#### Cross (Cartesian) Joins
+#### Challenges when using Joins
+##### Joins on Complex Types
+##### Handling Duplicate Column Names
+#### How Spark performs Joins
+##### Communications strategies
+
+
+### Data Sources
+#### Structure of Data Sources API
+##### Read API Structure
+##### Basics of Reading Data
+##### Write API Structure
+##### Basics of Writing Data
+#### CSV Files
+##### CSV Options
+##### Reading csv
+##### Writing csv
+#### JSON Files
+##### json Options
+##### Reading json
+##### Writing json
+#### Parquet Files
+##### Reading Parquet
+##### Writing Parquet
+#### ORC Files
+##### Reading Orc
+##### Writing Orc
+#### SQL Databases
+##### Reading from SQL databases
+##### Query Pushdown
+##### Writing to SQL databases
+#### Text Files
+##### Reading Text
+##### Writing Text
+#### Advanced I/O Concepts
+##### Splitting File Types and Compression
+##### Reading data in Parallel
+##### Writing data in Parallel
+##### Writing Complex Types
+##### Managing File Size
+
+
+### Spark SQL
+#### Big Data and SQL: Apache Hive
+#### Big Data and SQL: Spark SQL
+##### Spark’s Relationship to Hive
+- can cpnnect to Hive metastore and access table metadata to reduce file listing when accessing information.
+#### How to Run Spark SQL Queries
+to connect to Hive metastore:
+- set Metastore version (default 1.2.1) `spark.sql.hive.metastore.version`
+- set `spark.sql.hive.meatstore.jars` if changing the way `HiveMetastoreClient` is intialized.
+set shared prefixes `spark.sql.hive.metastore.sharedPrefixes ` in order to communicate with databases that store the Hive metastore.
+##### Spark SQL CLI
+- make basic Spark SQL queries in local mode from command line.
+- can't communicate with the Thrift JDBC server.
+- start Spark SQL CLI, run `./bin/spark-sql` in the Spark directory
+##### Spark’s Programmatic SQL Interface
+- execute SQL using `sql` method on the `SparkSession` object.
+- returns a DataFrame.
+- executed lazily
+- multiline queries can be passed using multiline string
+```python
+spark.sql("""SELECT user_id, department, first_name FROM professors
+  WHERE department in
+  (SELECT name FROM department WHERE created_date >= "2018-09-02")""")
+```
+- can completely interoperate between SQL and DataFrames. ie create DataFrame, manipulate with SQL, and then manipulate again as a DataFrame.
+```Python
+spark.read.json("/data/flight-data/json/2015-summary.json")\
+  .createOrReplaceTempView("some_sql_view") # DF => SQL
+spark.sql("""
+SELECT DEST_COUNTRY_NAME, sum(count)
+FROM some_sql_view
+GROUP BY DEST_COUNTRY_NAME """)\
+  .where("DEST_COUNTRY_NAME like 'S%'").where("`sum(count)` > 10")\
+  .count() # SQL => DF
+```
+
+
+##### SparkSQL Thrift JDBC/ODBC Server
+- remote program connects to Spark driver to execute Spark SQL queries.
+- common use to connect business intelligence software like Tableau to Spark.
+start JDBC/ODBC server run `./sbin/start-thriftserver.sh` in Spark directory
+- scripts accepts all `bin/spark-submit` command line options.
+- by default listens on localhost:10000.
+#### Catalog
+abstraction for storage of metadata about data stored in tables, and about databases, tables, functions and views.<br>
+#### Tables
+- first need to define tables, logically equivalent ot DataFrames; in that they are a structure of data which you run commands.
+- core difference between tables and DataFrames:
+- - define DataFrames in the scope of a programming language
+- - define tables within a database. (will belong to default database)
+- tables always contain data; no temporary tables, only views that doesn't contain data.
+- - if your drop a table, you risk losing data.
+##### Spark-Managed Tables
+- tables store data within the table, as well as data about the tables (metadata).
+- when tables are defined from disk; unmanaged table.
+- when use `saveAsTAble` on a DataFrame; managed table which Spark will track all of the relevant info.
+##### Creating Tables
+- no need to define a table and then load data into it. Create one on the fly
+- can specify sophisticated options when read in a file.
+
+```Python
+spark.sql("""
+  CREATE TABLE flights(
+    DEST_COUNTRY_NAME STRING, ORIGIN_COUNTRY_NAME STRING, count LONG)
+  USING JSON OPTIONS (path "/data/flight-data/json/2015-summary.json")
+  )"""
+```
+if `USING` is not specified, Spark will default to Hive SerDe configuration that can impact performance.
+- comments can be added to certain columns in a table which can aid developers in understanding the data.
+
+```Python
+spark.sql("""
+  CREATE TABLE flights_csv (
+    DEST_COUNTRY_NAME STRING,
+    ORIGIN_COUNTRY_NAME STRING COMMENT "remember, US will be most prevalent",
+    count LONG)
+  USING csv OPTIONS(header true, path "/data/flight-data/json/2015-summary.json")
+  )"""
+```
+- create table from a query: `CREATE TABLE flights_from_select USING parquet AS SELECT * FROM flights`
+- you can control the layout of the data by writing out a partitioned dataset
+```Python
+spark.sql("""
+  CREATE TABLE partitioned_flights USING parquet PARTITIONED BY (DEST_COUNTRY_NAME)
+  AS SELECT DEST_COUNTRY_NAME, ORIGIN_COUNTRY_NAME, count FROM flights LIMIT 5
+""")
+```
+##### Creating External Tables
+##### Inserting into Tables
+##### Describing Table Metadata
+- can view comments
+`spark.sql("DESCRIBE TABLE flights_csv")`
+- view patitioning sheme on partitioned tables
+`SHOW PARTITIONS partitioned_flights`
+##### Refreshing Table Metadata
+- `REFRESH TABLE` refreshes all cached entries associated with the table.
+- `REPAIR TABLE` refreshes the partitions maintained in the catalog for that table.
+- - focuses on collecting new partition information.
+##### Dropping Tables
+- can't delete table, can only drop them.
+- dropping a managed table will remove both the data and the table definition.
+- dropping an unmanaged table, no data will be removed.
+`DROP TABLE <name>;` or avoid error if table doesn't exist `DROP TABLE IF EXISTS <name>;`
+##### Caching Tables
+`CACHE TABLE <name>` and `UNCACHE TABLE <name>`
+#### Views
+- specifies a set of transformations on top of an existing table.
+- like saved query plans, convenient for organising or reusing query logic.
+- can be global, set to a database or per session.
+##### Creating Views
+- displayed as tables
+- performs transformations on source data at query time.
+create temporary view, available only during current session
+```python
+spark.sql("""
+  CREATE TEMP VIEW temp__view_name AS
+    SELECT * FROM flights WHERE DEST_COUNTRY_NAME = "US"
+""")
+```
+can overwrite if one already exists
+```python
+spark.sql(""")
+CREATE OR REPLACE GLOBAL VIEW temp_name AS
+  SELECT * FROM flights WHERE DEST_COUNTRY_NAME = "US"
+""")
+```
+Global temp views are resolved regardless of database and viewable across entire Spark application, but removed after the session.
+##### Dropping Views
+- dropping a view removes only the definition itself, not the underlying data
+`DROP VIEW IF EXISTS temp_view_name`
+#### Databases
+
+##### Creating Databases
+##### Setting the Database
+##### Dropping Databases
+#### Select Statements
+##### case…when…then Statements
+#### Advanced Topics
+##### Complex Types
+##### Functions
+##### Subqueries
+#### Miscellaneous Features
+##### Configurations
+##### Setting Configuration Values in SQL
