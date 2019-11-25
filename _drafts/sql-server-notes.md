@@ -158,3 +158,29 @@ SELECT TerritoryName, OrderDate,
        OVER(PARTITION BY TerritoryName ORDER BY OrderDate) AS NextOrder
 FROM Orders
 ```
+
+## Transactions and Error Handling in SQL Server
+```sql
+BEGIN TRY
+    -- attempt code  here
+END TRY
+BEGIN CATCH
+    --- code here if above failed
+END CATCH
+```
+nested try and catch:
+```sql
+BEGIN TRY
+    -- attempt code  here
+END TRY
+BEGIN CATCH
+    --- code here if above failed
+    BEGIN TRY
+        -- 2nd attempt code  here
+    END TRY
+    BEGIN CATCH
+        --- code here if above failed
+    END CATCH
+END CATCH
+```
+#### Anatomy of an error message
