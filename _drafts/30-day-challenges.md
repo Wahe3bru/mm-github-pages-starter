@@ -36,3 +36,9 @@ __30 repeats__
 - [ ] Library
 - [ ] visit Granny
 - [ ] friends
+
+after 30 days stop the habit and take notes:
+- why did it fail/succeed
+- what should I change in future?
+- how can I adapt a similar habit?
+- where to stack or which habit to stack on?
