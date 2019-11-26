@@ -184,3 +184,55 @@ BEGIN CATCH
 END CATCH
 ```
 #### Anatomy of an error message
+```bash
+# 1         2         3          4
+Msg 2627, Level 14, State 1, Line 1
+Violation of UNIQUE KEY constraint 'unique_name'.
+Cannot insert duplicate key in object 'dbo.products'.
+The duplicate key value is (Trek Powerfly 5 - 2018).
+```
+1. error number
+- SQL errors: 1 to 49999
+- Own errors: starting from 50001
+
+2. severity Level
+- 0-10: informational messages
+- 11-16: errors that can be corrected by the user (constraint violation, etc.)
+- 17-24: other errors (software problems,fatal errors)
+
+3. State
+- 1: if SQL Server displays error
+- 0-255: own errors
+
+4. Line number , and if procedure/function name<br>
+
+**Uncatchable errors**
+- Severity lower than 11 (11-19 are catchable)
+- Severity of 20 or higher that stop the connection
+- Compilation errors: objects and columns that don't exist
+
+#### Get information about errors
+- when using TRY/CATCH block we lose info about the error
+- error functions
+- - `ERROR_NUMBER()` returns the number ofthe error.
+- - `ERROR_SEVERITY()` returns the error severity (11-19).
+- - `ERROR_STATE()` returns the state ofthe error.
+- - `ERROR_LINE()` returns the number ofthe line ofthe error.
+- - `ERROR_PROCEDURE()` returns the name of stored procedure/trigger. NULL ifthere is not storedprocedure/trigger.
+- - `ERROR_MESSAGE()` returns the text ofthe error message.
+- These functions must be placed within the CATCH block. If an error occurs within the TRY block, they return information about the error.
+```sql
+BEGIN TRY
+  INSERT INTO products (product_name, stock, price)
+  VALUES ('Trek Powerfly 5 - 2018', 10, 3499.99);
+END TRY
+BEGIN CATCH
+  SELECT
+    ERROR_NUMBER() AS Error_number,
+    ERROR_SEVERITY() AS Error_severity,
+    ERROR_STATE() AS Error_state,
+    ERROR_PROCEDURE() AS Error_procedure,
+    ERROR_LINE() AS Error_line,
+    ERROR_MESSAGE() AS Error_message;
+END CATCH
+```
