@@ -112,29 +112,29 @@
 - - [x] Communications strategies                           26/11/2019
 
 ### Data Sources
-- [ ] Structure of Data Sources API
-- - [ ] Read API Structure
-- - [ ] Basics of Reading Data
-- - [ ] Write API Structure
-- - [ ] Basics of Writing Data
-- [ ] CSV Files
-- - [ ] CSV Options
-- - [ ] Reading csv
-- - [ ] Writing csv
-- [ ] JSON Files
-- - [ ] json Options
-- - [ ] Reading json
-- - [ ] Writing json
-- [ ] Parquet Files
-- - [ ] Reading Parquet
-- - [ ] Writing Parquet
-- [ ] ORC Files
-- - [ ] Reading Orc
-- - [ ] Writing Orc
-- [ ] SQL Databases
-- - [ ] Reading from SQL databases
-- - [ ] Query Pushdown
-- - [ ] Writing to SQL databases
+- [x] Structure of Data Sources API
+- - [x] Read API Structure
+- - [x] Basics of Reading Data
+- - [x] Write API Structure
+- - [x] Basics of Writing Data
+- [x] CSV Files
+- - [x] CSV Options
+- - [x] Reading csv
+- - [x] Writing csv
+- [x] JSON Files
+- - [x] json Options
+- - [x] Reading json
+- - [x] Writing json
+- [x] Parquet Files
+- - [x] Reading Parquet
+- - [x] Writing Parquet
+- [x] ORC Files
+- - [x] Reading Orc
+- - [x] Writing Orc
+- [x] SQL Databases
+- - [x] Reading from SQL databases
+- - [x] Query Pushdown
+- - [x] Writing to SQL databases                              26/11/2019
 - [ ] Text Files
 - - [ ] Reading Text
 - - [ ] Writing Text
@@ -1122,27 +1122,98 @@ best to let Spark decide
 ### Data Sources
 #### Structure of Data Sources API
 ##### Read API Structure
+core structure for reading data: `DataFrameReader.format(...).option("key", "value").schema(...).load()`
+- `format` is optional, default is Parquet format
+- `option` set key-value configurations to parameterize reading in data
+- `schema` is optional, either provide a schema or use schema inference.
 ##### Basics of Reading Data
+- `DataFrameReader` foundation for reading data
+- accessed through `SparkSession` via `read` attribute.
+- then specify several values:
+- - the *format*
+- - the *schema*
+- - the *read mode*
+- - *option/s*: Atleast one option must be supplied, the *path*
+
+Read modes:<br>
+- the default read mode is permissive
+- `permissive` set all fields to `null` when currupted record encountered, and places all corrupted records in a string column: `_corrupt_recod`
+- `dropMalformed` drops the row that contains malformed records
+- `failFast` fails immediately when encountering malformed records.
 ##### Write API Structure
+core structue for writing data: `DataFrameWriter.format(...).option(...).partitionBy(...).bucketBy(...).sortBy(...).save()`
+- `format` is optional, default Parquet format.
+- `partitionBy`, `bucketBy`, and `sortBy` works only for file-based data sources. used to control layout of files at the destination.
 ##### Basics of Writing Data
+- Similar to reading data, but use `DataFrameWriter` `write` attribute.
+- then specify the `format`, `option`s and `save` mode.
+- the minimum option is supplying the *path*
+
+**save modes**
+- `append` append the output files to the list of files that already exists at that location.
+- `overwrite` completely overwrite any daya that exists in that location.
+- `errorIfExists` throws error and fails if data or files already exists at that location, the default.
+- `ignore` if data or files exists in that location, then do nothing with the current DataFrame
 #### CSV Files
 ##### CSV Options
-##### Reading csv
-##### Writing csv
+pg160 table of options
 #### JSON Files
+default is line delimited JSON files, setting `multiLine` option to True reads the entire JSON file as one object.
 ##### json Options
-##### Reading json
-##### Writing json
+pg 167 table of options
 #### Parquet Files
-##### Reading Parquet
-##### Writing Parquet
+- recommended for long time storage
+- reading Parquet files are more efficent that CSV or JSON.
+- supports complex types
 #### ORC Files
-##### Reading Orc
-##### Writing Orc
+Similar to Parquet, but optimized for Hive.
 #### SQL Databases
+To read/write from databases your need:
+- Java Databse Connectivity (JDBC) driver on the spark classpath
+- provide proper JAR for the driver itself
+pg 174 table of JDBC options
 ##### Reading from SQL databases
+```Python
+driver = "org.sqlite.JDBC"
+path = "/data/flight-data/jdbc/my-sqlite.db"
+url = "jdbc:sqlite: + path"
+tablename = "flight_info"
+
+#read data from db
+dbDataFrame = spark.read.format("jdbc").option("url", url)\
+  .option("dbtable", tablename).option("driver", driver).load()
+```
+if using PostgreSQL or others:
+```Python
+pdDF = spark.read.format("jdbc")\
+  .option("driver","org.postgresql.Driver")\
+  .option("url", "jdbc:postgresql://database_server")\
+  .option("dbtable", "schema.tablename")\
+  .option("user", "username").option("password", "my-secret-password").load()
+```
 ##### Query Pushdown
+Spark can’t translate all of its own functions into the functions available in the SQL database in which you’re working. Therefore, sometimes you’re going to want to pass an entire query into your SQL that will return the results as a DataFrame
+```Python
+pushdownQuery = """(SELECT DISTINCT(DEST_COUNTRY_NAME)FROM flight_info)
+  AS flight_info"""
+dbDataFrame = spark.read.format("jdbc")\
+  .option("url", url).option("dbtable", pushdownQuery).option("driver",  driver)\
+  .load()
+```
+**Reading databases in parrallel**<br>
+specifying the max number of partitions limits how much reading and writing happens in parrallel
+```Python
+dbDataFrame = spark.read.format("jdbc")\
+  .option("url", url).option("dbtable", tablename).option("driver", driver)\
+  .option("numPartitions", 10).load()
+```
 ##### Writing to SQL databases
+```Python
+props = {"driver":"org.sqlite.JDBC"}
+newPath = "jdbc:sqlite://tmp/my-sqlite.db"
+
+csvFile.write.jdbc(newPath, tablename, mode="overwrite", properties=props)
+```
 #### Text Files
 ##### Reading Text
 ##### Writing Text
@@ -1214,7 +1285,8 @@ abstraction for storage of metadata about data stored in tables, and about datab
 - no need to define a table and then load data into it. Create one on the fly
 - can specify sophisticated options when read in a file.
 
-```Python
+----------------------
+```
 spark.sql("""
   CREATE TABLE flights(
     DEST_COUNTRY_NAME STRING, ORIGIN_COUNTRY_NAME STRING, count LONG)
@@ -1224,7 +1296,7 @@ spark.sql("""
 if `USING` is not specified, Spark will default to Hive SerDe configuration that can impact performance.
 - comments can be added to certain columns in a table which can aid developers in understanding the data.
 
-```Python
+```
 spark.sql("""
   CREATE TABLE flights_csv (
     DEST_COUNTRY_NAME STRING,
@@ -1241,6 +1313,7 @@ spark.sql("""
   AS SELECT DEST_COUNTRY_NAME, ORIGIN_COUNTRY_NAME, count FROM flights LIMIT 5
 """)
 ```
+-------------------
 ##### Creating External Tables
 ##### Inserting into Tables
 ##### Describing Table Metadata
