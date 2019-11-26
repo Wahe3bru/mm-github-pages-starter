@@ -134,16 +134,16 @@
 - [x] SQL Databases
 - - [x] Reading from SQL databases
 - - [x] Query Pushdown
-- - [x] Writing to SQL databases                              26/11/2019
-- [ ] Text Files
-- - [ ] Reading Text
-- - [ ] Writing Text
-- [ ] Advanced I/O Concepts
-- - [ ] Splitting File Types and Compression
-- - [ ] Reading data in Parallel
-- - [ ] Writing data in Parallel
-- - [ ] Writing Complex Types
-- - [ ] Managing File Size
+- - [x] Writing to SQL databases
+- [x] Text Files
+- - [x] Reading Text
+- - [x] Writing Text
+- [x] Advanced I/O Concepts
+- - [x] Splitting File Types and Compression
+- - [x] Reading data in Parallel
+- - [x] Writing data in Parallel
+- - [x] Writing Complex Types
+- - [x] Managing File Size                                  26/11/2019
 
 ### Spark SQL
 - [x] Big Data and SQL: Apache Hive
@@ -1216,14 +1216,38 @@ csvFile.write.jdbc(newPath, tablename, mode="overwrite", properties=props)
 ```
 #### Text Files
 ##### Reading Text
+- `textFile` partitioned directory names are ignored
+- `text` respects partitioning on reading and writing.
+```Python
+spark.read.textFile("path/to/file.txt")\
+  .selectexpr("split(value, ",") as rows").show()
+```
 ##### Writing Text
+The write will fail if more than one string column
+`csvFile.select("column_name").write.text("/path/to/text-file.txt")`
 #### Advanced I/O Concepts
 ##### Splitting File Types and Compression
+Recommend Parquet with gzip compression.
 ##### Reading data in Parallel
+Multiple executors can't read the same file at the same time, but can read multiple different files at the same time.
+Each one will become a partition in the DataFrame, and read in parallel.
 ##### Writing data in Parallel
+The number of files or data written is dependent on the number of partitions the DataFrame has. One file is written per partition by default.
+**partitioning**<br>
+- allows control what dat is store and where as you write it.
+- basically each column is encoded as a folder.
+- allows reading only data relevant to problem instead of scanning the entire dataset.
+**Bucketing**<br>
+- control the data written to each file
+- avoid shuffles later as data with same bucket ID grouped into one physical partition.
+- so data is prepartitioned based on expectations on how the data will be used in the future.
+- only supported for Spark-managed tables.
 ##### Writing Complex Types
+CSV doesn't support complex types, but Parquet and ORC do.
 ##### Managing File Size
-
+- important more for reading data than writing.
+- `maxRecordsPerFile` option can control file sizes by coltrolling number of records written in each file.
+- `df.werite.option("maxRecordsPerFile", 5000)` limit 5000 records in each file.
 
 ### Spark SQL
 #### Big Data and SQL: Apache Hive
@@ -1285,7 +1309,6 @@ abstraction for storage of metadata about data stored in tables, and about datab
 - no need to define a table and then load data into it. Create one on the fly
 - can specify sophisticated options when read in a file.
 
-----------------------
 ```
 spark.sql("""
   CREATE TABLE flights(
@@ -1313,7 +1336,7 @@ spark.sql("""
   AS SELECT DEST_COUNTRY_NAME, ORIGIN_COUNTRY_NAME, count FROM flights LIMIT 5
 """)
 ```
--------------------
+
 ##### Creating External Tables
 ##### Inserting into Tables
 ##### Describing Table Metadata
