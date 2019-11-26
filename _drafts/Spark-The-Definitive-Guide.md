@@ -95,21 +95,21 @@
 - [x] User-Defined Aggregation Functions                    21/11/2019
 
 ### Joins
-- [ ] Join Expressions
-- [ ] Join Types
-- [ ] Inner Joins
-- [ ] Outer Joins
-- [ ] Left Outer Joins
-- [ ] Right Outer Joins
-- [ ] Left Semi Joins
-- [ ] Left Anti Joins
-- [ ] Natural Joins
-- [ ] Cross (Cartesian) Joins
-- [ ] Challenges when using Joins
-- - [ ] Joins on Complex Types
-- - [ ] Handling Duplicate Column Names
-- [ ] How Spark performs Joins
-- - [ ] Communications strategies
+- [x] Join Expressions
+- [x] Join Types
+- [x] Inner Joins
+- [x] Outer Joins
+- [x] Left Outer Joins
+- [x] Right Outer Joins
+- [x] Left Semi Joins
+- [x] Left Anti Joins
+- [x] Natural Joins
+- [x] Cross (Cartesian) Joins
+- [x] Challenges when using Joins
+- - [x] Joins on Complex Types
+- - [x] Handling Duplicate Column Names
+- [x] How Spark performs Joins
+- - [x] Communications strategies                           26/11/2019
 
 ### Data Sources
 - [ ] Structure of Data Sources API
@@ -1060,20 +1060,63 @@ UDAFs are currently available only in Scala or Java
 
 ### Joins
 #### Join Expressions
+The most common join expression, an `equi-join`, compares whether the specified keys in your left and right datasets are equal. If they are equal, Spark will combine the left and right datasets
 #### Join Types
-#### Inner Joins
-#### Outer Joins
-#### Left Outer Joins
-#### Right Outer Joins
-#### Left Semi Joins
-#### Left Anti Joins
-#### Natural Joins
-#### Cross (Cartesian) Joins
+- join expression determines whether two rows *should* join
+- join type determines *what* should be the result.
+
+different types of joins in Spark:
+- `"inner"` Inner joins (keep rows with keys that exist in the left and right datasets), default join
+- `"outer"` Outer joins (keep rows with keys in either the left or right datasets)
+- `"left_outer"` Left outer joins (keep rows with keys in the left dataset)
+- `"right_outer"` Right outer joins (keep rows with keys in the right dataset)
+- `"left_semi"` Left semi joins (keep the rows in the left, and only the left, dataset where the key appears in the right dataset)
+- `"left_anti"` Left anti joins (keep the rows in the left, and only the left, dataset where they do not appear in the right dataset)
+- Natural joins (perform a join by implicitly matching the columns between the two datasets with the same names)
+- `"cross"` Cross (or Cartesian) joins (match every row in the left dataset with every row in the right dataset)
+- - If you truly intend to have a cross-join, you can call that out explicitly: `person.crossJoin(graduateProgram).show()`
+
+```Python
+joinExpression = person["graduate_program"] == graduateProgram['id']
+joinType = "inner"
+
+person.join(graduateProgram, joinExpression, joinType),show()
+```
+
 #### Challenges when using Joins
 ##### Joins on Complex Types
+Any expression is a valid join expression if it returns a Boolean.
+```Python
+from pyspark.sql.functions import expr
+
+person.withColumnRenamed("id", "personId")\
+  .join(sparkStatus, expr("array_contains(spark_status, id)")).show()
+```
 ##### Handling Duplicate Column Names
+###### approach1: different join expression
+easiest fix is to change join expression from a Boolean to a string or sequence. This automatically removes one of the columns.
+###### approach2: dropping the column after join
+Drop the offending column after the join. When referring to the column we need to refer to original source of the DataFrame.
+###### approach3: renaming column before the join
+Renaming one of the columns avoids the issue completely
 #### How Spark performs Joins
+Spark approaches cluster communication in two different ways during joins. It either incurs a shuffle join, which results in an all-to-all communication or a broadcast join<br>
+**shuffle-join**<br>
+- every node talks to every node and share data accordingly.
+- joins are expensive and can cause network congestion
+
+**broadcast join**<br>
+- if table can fit in memmory of single worker node
+- replicate small DataFrame onto every worker node in cluster.
+- initial large communication, then no further comunication between nodes.
+- CPU becomes the biggest bottleneck
 ##### Communications strategies
+###### Big-table-to-big-table
+- shuffle-join
+###### Big-table-to-small-table
+- broadcast join
+###### Little table–to–little table
+best to let Spark decide
 
 
 ### Data Sources
