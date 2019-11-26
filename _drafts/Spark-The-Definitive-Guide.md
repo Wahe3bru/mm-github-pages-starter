@@ -379,12 +379,12 @@ __Schemas__<br>
 - defines column names and data types of a dataframe.
 - schemas can be defined manually or inferred automatically (_schema on read_)
 
-__dataframes and datasets__
+__dataframes and datasets__<br>
 - datasets are only available to java-based languages (Scala or Java)
 - dataframes are what all other interpreted languages used. The cool thing about that is that what language used, python or r, the actual work done is spark using the __catalyst__ engine.
 - dataframes make use of Sparks optimized internal format
 
-__spark types__
+__spark types__<br>
 To work with correct  Python types, they can be accessed by `from pyspark.sql.types import *`
 some common Python type reference:
 
@@ -855,6 +855,7 @@ using  `asc_nulls_first`, `desc_nulls_first`, `asc_nulls_last`, or `desc_nulls_l
 - - [ ] array_contains
 - - [ ] explode
 - - [ ] Maps
+
 ##### Working with JSON
 ##### User-Defined Functions (UDF)
 - functions written by user to preform specific transformations.
@@ -890,21 +891,28 @@ udfExampleDF.selectExpr("power3(num)").show()
 ##### count
 - if used as an action, eagerly evaluated `df.count()`, or
 - transformation, specifying a specific column, or all
+
 ##### countDistinct
 - count the number of unique groups
+
 ##### approx_count_distict
 `pprox_count_distinct(<column>, <err>)`
 - used on large datasets where the exact distinct count is not important, and  an approximate will do
 - performance gain
 - `<err>`: maximum estimation error parameter
+
 ##### first and last
 - based on the rows of a dataframe
+
 ##### min and max
 - extraxt minimum and maximum values.
+
 ##### sum
 - add all the values
+
 ##### sumDisctint
 - sum a distinct set of values.
+
 ##### avg
 ```python
 from pyspark.sql.functions import sum, count, avg, expr
@@ -921,16 +929,19 @@ from pyspark.sql.functions import var_samp, stddev_samp
 df.select(var_pop("Quantity"), var_samp("Quantity"),
           stddev_pop("Quantity"), stddev_samp("Quantity")).show()
 ```
+
 ##### skewness and kurtosis
 - measurements of extreme points in the data
 - - skewness: asymetry of the values in data around the mean
 - - kurtosis: measure of the tail of the data
+
 ##### Covariance and Correlation
 - covariance has a population and sample formula
 ```Python
 from pyspark.sql.functions import corr, covar_pop, covar_samp df.select(covar_pop("InvoiceNo", "Quantity"), covar_samp("InvoiceNo", "Quantity"),
           corr("InvoiceNo", "Quantity")).show()
 ```
+
 ##### Aggregating to Complex Types
 In spark you can also perform aggregations on complex types.
 For example, we can collect a list of values present in a given column or only the unique values by collexting to a set.
@@ -938,9 +949,11 @@ For example, we can collect a list of values present in a given column or only t
 from pyspark.sql.functions import collect_set, collect_list
 df.agg(collect_set("Country"), collect_list("Country")).show()
 ```
+
 #### Grouping
 Grouping happens in two phases; first `RelationalGroupedDataset`, then second step returns a `DataFrame`<br>
 `df.groupBy("InvoiceNo", "CustomerId").count().show()`
+
 ##### Grouping with Expressions
 Rather than specifying in `Select` statement, it's easier to specify within `agg`.<br>
 This makes possible to pass in arbitrary expressions that need some aggregation specified. `alias` a column after transforming it for use in the data flow
@@ -951,6 +964,7 @@ df.groupBy("InvoiceNo").agg(
      expr("count(Quantity)")).show()
 )
 ```
+
 ##### Grouping with Maps
 Sometime easier to specify tranformations as a series of `maps`; key is the columns, and value is the aggregation function (as a string). You can reuse multiple column names if specified inline.
 ```Python
@@ -1110,11 +1124,14 @@ Spark approaches cluster communication in two different ways during joins. It ei
 - replicate small DataFrame onto every worker node in cluster.
 - initial large communication, then no further comunication between nodes.
 - CPU becomes the biggest bottleneck
+
 ##### Communications strategies
 ###### Big-table-to-big-table
 - shuffle-join
+
 ###### Big-table-to-small-table
 - broadcast join
+
 ###### Little table–to–little table
 best to let Spark decide
 
@@ -1126,6 +1143,7 @@ core structure for reading data: `DataFrameReader.format(...).option("key", "val
 - `format` is optional, default is Parquet format
 - `option` set key-value configurations to parameterize reading in data
 - `schema` is optional, either provide a schema or use schema inference.
+
 ##### Basics of Reading Data
 - `DataFrameReader` foundation for reading data
 - accessed through `SparkSession` via `read` attribute.
@@ -1140,10 +1158,12 @@ Read modes:<br>
 - `permissive` set all fields to `null` when currupted record encountered, and places all corrupted records in a string column: `_corrupt_recod`
 - `dropMalformed` drops the row that contains malformed records
 - `failFast` fails immediately when encountering malformed records.
+
 ##### Write API Structure
 core structue for writing data: `DataFrameWriter.format(...).option(...).partitionBy(...).bucketBy(...).sortBy(...).save()`
 - `format` is optional, default Parquet format.
 - `partitionBy`, `bucketBy`, and `sortBy` works only for file-based data sources. used to control layout of files at the destination.
+
 ##### Basics of Writing Data
 - Similar to reading data, but use `DataFrameWriter` `write` attribute.
 - then specify the `format`, `option`s and `save` mode.
@@ -1154,24 +1174,30 @@ core structue for writing data: `DataFrameWriter.format(...).option(...).partiti
 - `overwrite` completely overwrite any daya that exists in that location.
 - `errorIfExists` throws error and fails if data or files already exists at that location, the default.
 - `ignore` if data or files exists in that location, then do nothing with the current DataFrame
+
 #### CSV Files
 ##### CSV Options
 pg160 table of options
+
 #### JSON Files
 default is line delimited JSON files, setting `multiLine` option to True reads the entire JSON file as one object.
 ##### json Options
 pg 167 table of options
+
 #### Parquet Files
 - recommended for long time storage
 - reading Parquet files are more efficent that CSV or JSON.
 - supports complex types
+
 #### ORC Files
 Similar to Parquet, but optimized for Hive.
+
 #### SQL Databases
 To read/write from databases your need:
 - Java Databse Connectivity (JDBC) driver on the spark classpath
 - provide proper JAR for the driver itself
 pg 174 table of JDBC options
+
 ##### Reading from SQL databases
 ```Python
 driver = "org.sqlite.JDBC"
@@ -1207,6 +1233,7 @@ dbDataFrame = spark.read.format("jdbc")\
   .option("url", url).option("dbtable", tablename).option("driver", driver)\
   .option("numPartitions", 10).load()
 ```
+
 ##### Writing to SQL databases
 ```Python
 props = {"driver":"org.sqlite.JDBC"}
@@ -1214,6 +1241,7 @@ newPath = "jdbc:sqlite://tmp/my-sqlite.db"
 
 csvFile.write.jdbc(newPath, tablename, mode="overwrite", properties=props)
 ```
+
 #### Text Files
 ##### Reading Text
 - `textFile` partitioned directory names are ignored
@@ -1222,9 +1250,11 @@ csvFile.write.jdbc(newPath, tablename, mode="overwrite", properties=props)
 spark.read.textFile("path/to/file.txt")\
   .selectexpr("split(value, ",") as rows").show()
 ```
+
 ##### Writing Text
 The write will fail if more than one string column
 `csvFile.select("column_name").write.text("/path/to/text-file.txt")`
+
 #### Advanced I/O Concepts
 ##### Splitting File Types and Compression
 Recommend Parquet with gzip compression.
@@ -1242,6 +1272,7 @@ The number of files or data written is dependent on the number of partitions the
 - avoid shuffles later as data with same bucket ID grouped into one physical partition.
 - so data is prepartitioned based on expectations on how the data will be used in the future.
 - only supported for Spark-managed tables.
+
 ##### Writing Complex Types
 CSV doesn't support complex types, but Parquet and ORC do.
 ##### Managing File Size
@@ -1249,20 +1280,24 @@ CSV doesn't support complex types, but Parquet and ORC do.
 - `maxRecordsPerFile` option can control file sizes by coltrolling number of records written in each file.
 - `df.werite.option("maxRecordsPerFile", 5000)` limit 5000 records in each file.
 
+
 ### Spark SQL
 #### Big Data and SQL: Apache Hive
 #### Big Data and SQL: Spark SQL
 ##### Spark’s Relationship to Hive
 - can cpnnect to Hive metastore and access table metadata to reduce file listing when accessing information.
+
 #### How to Run Spark SQL Queries
 to connect to Hive metastore:
 - set Metastore version (default 1.2.1) `spark.sql.hive.metastore.version`
 - set `spark.sql.hive.meatstore.jars` if changing the way `HiveMetastoreClient` is intialized.
 set shared prefixes `spark.sql.hive.metastore.sharedPrefixes ` in order to communicate with databases that store the Hive metastore.
+
 ##### Spark SQL CLI
 - make basic Spark SQL queries in local mode from command line.
 - can't communicate with the Thrift JDBC server.
 - start Spark SQL CLI, run `./bin/spark-sql` in the Spark directory
+
 ##### Spark’s Programmatic SQL Interface
 - execute SQL using `sql` method on the `SparkSession` object.
 - returns a DataFrame.
@@ -1292,8 +1327,10 @@ GROUP BY DEST_COUNTRY_NAME """)\
 start JDBC/ODBC server run `./sbin/start-thriftserver.sh` in Spark directory
 - scripts accepts all `bin/spark-submit` command line options.
 - by default listens on localhost:10000.
+
 #### Catalog
 abstraction for storage of metadata about data stored in tables, and about databases, tables, functions and views.<br>
+
 #### Tables
 - first need to define tables, logically equivalent ot DataFrames; in that they are a structure of data which you run commands.
 - core difference between tables and DataFrames:
@@ -1301,10 +1338,12 @@ abstraction for storage of metadata about data stored in tables, and about datab
 - - define tables within a database. (will belong to default database)
 - tables always contain data; no temporary tables, only views that doesn't contain data.
 - - if your drop a table, you risk losing data.
+
 ##### Spark-Managed Tables
 - tables store data within the table, as well as data about the tables (metadata).
 - when tables are defined from disk; unmanaged table.
 - when use `saveAsTAble` on a DataFrame; managed table which Spark will track all of the relevant info.
+
 ##### Creating Tables
 - no need to define a table and then load data into it. Create one on the fly
 - can specify sophisticated options when read in a file.
@@ -1344,21 +1383,26 @@ spark.sql("""
 `spark.sql("DESCRIBE TABLE flights_csv")`
 - view patitioning sheme on partitioned tables
 `SHOW PARTITIONS partitioned_flights`
+
 ##### Refreshing Table Metadata
 - `REFRESH TABLE` refreshes all cached entries associated with the table.
 - `REPAIR TABLE` refreshes the partitions maintained in the catalog for that table.
 - - focuses on collecting new partition information.
+
 ##### Dropping Tables
 - can't delete table, can only drop them.
 - dropping a managed table will remove both the data and the table definition.
 - dropping an unmanaged table, no data will be removed.
 `DROP TABLE <name>;` or avoid error if table doesn't exist `DROP TABLE IF EXISTS <name>;`
+
 ##### Caching Tables
 `CACHE TABLE <name>` and `UNCACHE TABLE <name>`
+
 #### Views
 - specifies a set of transformations on top of an existing table.
 - like saved query plans, convenient for organising or reusing query logic.
 - can be global, set to a database or per session.
+
 ##### Creating Views
 - displayed as tables
 - performs transformations on source data at query time.
@@ -1377,25 +1421,32 @@ CREATE OR REPLACE GLOBAL VIEW temp_name AS
 """)
 ```
 Global temp views are resolved regardless of database and viewable across entire Spark application, but removed after the session.
+
 ##### Dropping Views
 - dropping a view removes only the definition itself, not the underlying data
 `DROP VIEW IF EXISTS temp_view_name`
+
 #### Databases
 - tool for organising tables
 - any SQL statement (including DataFrame commands) execute within the context of a database.
 - if you change databse, any user-defined tables will remain in the previous database and will need to be queried differently.
 - `SHOW DATABASES` see all databases
+
 ##### Creating Databases
 `CREATE DATABASE some_db`
+
 ##### Setting the Database
 - set a databse to perform certain query: `USE some_db`
 - afterwards, all queries will resolve table names to this database.
 - query different database by using correct prefix: `SELECT * FROM default.flights`
 - see current database using: `SELECT current_database()`
+
 ##### Dropping Databases
 `DROP DATBASE IF EXISTS some_db;`
+
 #### Select Statements
 follows ANSI SQL
+
 ##### case…when…then Statements
 like programmatic `if` statements
 ```python
@@ -1408,10 +1459,12 @@ spark.sql("""
   FROM partitioned_flights
 """)
 ```
+
 #### Advanced Topics
 ##### Complex Types
 - powerful that doesn't exist in standard SQL
 - structs, lists and maps.
+
 ###### Structs
 - more akin to maps
 - provide a way of creating or querying nested data in Spark
@@ -1425,6 +1478,7 @@ CREATE VIEW IF NOT EXISTS nested_data AS
 `SELECT country.DEST_COUNTRY_NAME, count from nested_data`
 - select all (sub)columns from struct
 `SELECT country.*, count FROM nested_data`
+
 ###### Lists
 - `collect_list` creates a list of values.
 - `collect_set` creates array without duplicate values.
@@ -1439,6 +1493,7 @@ CREATE VIEW IF NOT EXISTS nested_data AS
 `SELECT DEST_COUNTRY_NAME`, ARRAY(1,2,3) FROM flights
 - query lists by position (zero-indexed)
 `SELECT DEST_COUNTRY_NAME as new_name, collect_list(count)[0] FROM flights GROUP BY DEST_COUNTRY_NAME`
+
 ##### Functions
 - Spark SQL provides variety of sophisticated functions
 - `SHOW FUNCTIONS` list of functions in Spark SQL
@@ -1446,13 +1501,17 @@ CREATE VIEW IF NOT EXISTS nested_data AS
 - `SHOW USER FUNCTIONS` see user-defined functions
 - filter `SHOW` commands
 - - list functions that start with 'S' `SHOW FUNCTIONS "s*"`
+
 ##### Subqueries
 ###### Uncorrelated predicate subqueries
 - do not include information from the outer scope of the query. a query you can run on its own
+
 ###### Correlated predicate subqueries
 - use information from the outer scope in the inner query
+
 ###### Uncorrelated scalar queries
 used to bring in supplemental information not had previously.
+
 #### Miscellaneous Features
 ##### Configurations
 ##### Setting Configuration Values in SQL
