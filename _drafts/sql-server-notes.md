@@ -236,3 +236,32 @@ BEGIN CATCH
     ERROR_MESSAGE() AS Error_message;
 END CATCH
 ```
+#### THROW
+- using `THROW` without parameters re-throws an error
+- you can catch error thrown in stored procedure and get error message
+```SQL
+BEGIN TRY
+	-- Execute the stored procedure
+	EXEC insert_products
+    	-- Set the values for the parameters
+    	@product_name = 'Super bike',
+        @stock = 3,
+        @price = 499.99;
+END TRY
+-- Set up the CATCH block
+BEGIN CATCH
+	-- Select the error message
+	SELECT ERROR_MESSAGE();
+END CATCH
+```
+- THROW errors with parameters
+```SQL
+-- Set @staff_id to 4
+DECLARE @staff_id INT = 4;
+
+IF NOT EXISTS (SELECT * FROM staff WHERE staff_id = @staff_id)
+   	-- Invoke the THROW statement with parameters
+	THROW 50001, 'No staff member with such id', 1;
+ELSE
+   	SELECT * FROM staff WHERE staff_id = @staff_id
+```
