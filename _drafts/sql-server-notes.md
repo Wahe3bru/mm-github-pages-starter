@@ -237,6 +237,8 @@ BEGIN CATCH
 END CATCH
 ```
 #### THROW
+- recommended by Microsoft to use `THROW`
+- syntax: `THROW [error_number, message, state] [;]`
 - using `THROW` without parameters re-throws an error
 - you can catch error thrown in stored procedure and get error message
 ```SQL
@@ -265,3 +267,177 @@ IF NOT EXISTS (SELECT * FROM staff WHERE staff_id = @staff_id)
 ELSE
    	SELECT * FROM staff WHERE staff_id = @staff_id
 ```
+#### Customizing error messages
+2 ways:
+- variable by concatenated strings
+```SQL
+DECLARE @first_name NVARCHAR(20) = 'Pedro';
+-- Concat the message
+DECLARE @my_message NVARCHAR(500) =
+	CONCAT('There is no staff member with ', @first_name, ' as the first name.');
+
+IF NOT EXISTS (SELECT * FROM staff WHERE first_name = @first_name)
+	-- Throw the error
+	THROW 50000, @my_message, 1;
+```
+- `FROMATMESSAGE` function
+```SQL
+DECLARE @product_name AS NVARCHAR(50) = 'Trek CrossRip+ - 2018';
+DECLARE @number_of_sold_bikes AS INT = 10;
+DECLARE @current_stock INT;
+-- Select the current stock
+SELECT @current_stock = stock FROM products WHERE product_name = @product_name;
+DECLARE @my_message NVARCHAR(500) =
+	-- Customize the message
+	FORMATMESSAGE('There are not enough %s bikes. You only have %d in stock.', @product_name, @current_stock);
+
+IF (@current_stock - @number_of_sold_bikes < 0)
+	-- Throw the error
+	THROW 50000, @my_message, 1;
+```
+
+### Transactions and Error Handling
+- `BEGIN TRAN|TRANSACTION` marks the starting point of a transaction.
+- `COMMIT TRAN|TRANSACTION` marks the end of a successful transaction.
+- `ROLLBACK TRAN|TRANSACTION` reverts transaction to the beginning or a savepoint inside the transaction.
+using ROLLBACK when there is an error:
+```SQL
+BEGIN TRY  
+	BEGIN TRAN;
+		UPDATE accounts SET current_balance = current_balance - 100 WHERE account_id = 1;
+		INSERT INTO transactions VALUES (1, -100, GETDATE());
+
+		UPDATE accounts SET current_balance = current_balance + 100 WHERE account_id = 5;
+		INSERT INTO transactions VALUES (5, 100, GETDATE());
+	COMMIT TRAN;
+END TRY
+BEGIN CATCH  
+	ROLLBACK TRAN;
+END CATCH
+```
+This example; give accounts less than $5000 and extra $100 but only if there is less than 20 accounts
+```SQL
+-- Begin the transaction
+BEGIN TRANSACTION;
+	UPDATE accounts set current_balance = current_balance + 100
+		WHERE current_balance < 5000;
+	-- Check number of affected rows
+	IF @@ROWCOUNT > 20
+		BEGIN
+        	-- Rollback the transaction
+			ROLLBACK TRAN;
+			SELECT 'More accounts than expected. Rolling back';
+		END
+	ELSE
+		BEGIN
+        	-- Commit the transaction
+			COMMIT TRAN;
+			SELECT 'Updates commited';
+		END
+```
+
+#### @@TRANCOUNT
+- `@@TRANCOUNT` keeps count of the number of transactions.
+- - `BEGIN TRAN` increments `@@TRANCOUNT` +1
+- - `COMMIT TRAN` decrements `@@TRANCOUNT` -1
+- - `ROLLBACK TRAN` decrements `@@TRANCOUNT` to 0 unless there is a save point.
+```SQL
+BEGIN TRY
+	-- Begin the transaction
+	BEGIN TRAN;
+    	-- Correct the mistake
+		UPDATE accounts SET current_balance = current_balance + 200
+			WHERE account_id = 10;
+    	-- Check if there is a transaction
+		IF @@TRANCOUNT > 0     
+    		-- Commit the transaction
+			COMMIT TRAN;
+
+	SELECT * FROM accounts
+    	WHERE account_id = 10;      
+END TRY
+BEGIN CATCH  
+    SELECT 'Rolling back the transaction';
+    -- Check if there is a transaction
+    IF @@TRANCOUNT > 0   	
+    	-- Rollback the transaction
+        ROLLBACK TRAN;
+END CATCH
+```
+
+#### Savepoints
+- save current 'safe' state which to rollback to.
+- syntax: `SAVE TRAN|TRANSACTION <savepoint_name|@savepoint_variable`>;
+- to rollback to a savepoint: `ROLLBACK TRAN?TRANSACTION <savepoint_name|@savepoint_variable>;`
+```SQL
+BEGIN TRAN;
+	-- Mark savepoint1
+	SAVE TRAN savepoint1;
+	INSERT INTO customers VALUES ('Mark', 'Davis', 'markdavis@mail.com', '555909090');
+
+	-- Mark savepoint2
+    SAVE TRAN savepoint2;
+	INSERT INTO customers VALUES ('Zack', 'Roberts', 'zackroberts@mail.com', '555919191');
+
+	-- Rollback savepoint2
+	ROLLBACK TRAN savepoint2;
+    -- Rollback savepoint1
+	ROLLBACK TRAN savepoint1;
+
+	-- Mark savepoint3
+	SAVE TRAN savepoint3;
+	INSERT INTO customers VALUES ('Jeremy', 'Johnsson', 'jeremyjohnsson@mail.com', '555929292');
+-- Commit the transaction
+COMMIT TRAN;
+```
+
+#### XACT_ABORT and XACT_
+XACT_ABORT
+- specify if current transaction should be automatically rolledback (aborted) if error occurs.
+- default setting is off
+- - if there are errors, there can be open transactions.
+- `SET XACT_ABORT ON` - if there's an error, rollbacks the tranaction and aborts the execution.
+- better to use `THROW` to throw an error, and activate `XACT_ABORT`.
+- - `RAISE_ERROR()` will warn about the error, but won't activate `XACT_ABORT`
+```SQL
+-- Use the appropriate setting
+SET XACT_ABORT ON;
+-- Begin the transaction
+BEGIN tran;
+	UPDATE accounts set current_balance = current_balance - current_balance * 0.01 / 100
+		WHERE current_balance > 5000000;
+	IF @@ROWCOUNT <= 10
+    	-- Throw the error
+		THROW 50000, 'Not enough wealthy customers!', 1;
+	ELSE		
+    	-- Commit the transaction
+		COMMIT tran;
+```
+XACT_STATE
+- `0` no open transactions
+- `1` open and commitable transactions
+- `-1` open and uncommitable transaction (doomed transaction)
+- - can't commit
+- - can't rollback to a savepoint
+- - can rollback the full transaction
+- - can't make any changes/can read data
+```SQL
+SET XACT_ABORT ON;
+BEGIN TRY
+  BEGIN TRAN;
+    INSERTINTO customers VALUES ('Mark', 'Davis', 'markdavis@mail.com', '555909090');
+    INSERTINTO customers VALUES ('Dylan', 'Smith', 'dylansmith@mail.com', '555888999'); -- ERROR!
+  COMMIT TRAN;
+END TRY
+BEGIN CATCH
+  IF XACT_STATE() = -1
+    ROLLBACK TRAN;
+  IF XACT_STATE() = 1
+    COMMIT TRAN;
+  SELECT ERROR_MESSAGE() AS Error_message;
+END CATCH
+```
+
+### Controlling concurrency: transaction isolation levels
+
+- Phantom reads occur when a transaction reads some records twice, but the first result it gets is different from the second result as a consequence of another committed transaction having inserted a row.
