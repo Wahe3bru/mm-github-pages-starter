@@ -441,3 +441,35 @@ END CATCH
 ### Controlling concurrency: transaction isolation levels
 
 - Phantom reads occur when a transaction reads some records twice, but the first result it gets is different from the second result as a consequence of another committed transaction having inserted a row.
+
+transction isolation levels:
+- `READ COMMITTED` default
+- `READ UNCOMMITTED`
+- - least restrictive isolation level
+- - read rows from another transaction which has not been committed/rolledback yet.
+- `REPEATABLE READ`
+- `SERIALIZABLE`
+- `SNAPSHOT`
+- syntax: `SET TRANSACTION ISOLATION ISOLATION LEVEL READ UNCOMMITTED`
+
+knowing current isolation level:
+```SQL
+SELECT CASE transaction_isolation_level
+    WHEN 0 THEN 'UNSPECIFIED'
+    WHEN 1 THEN 'READ UNCOMMITTED'
+    WHEN 2 THEN 'READ COMMITTED'
+    WHEN 3 THEN 'REPEATABLEREAD'
+    WHEN 4 THEN 'SERIALIZABLE'
+    WHEN 5 THEN'SNAPSHOT'
+  END AS transaction_isolation_level FROM sys.dm_exec_sessions
+WHERE session_id = @@SPID
+```
+
+`READ UNCOMMITTED` summary
+Pro:
+- can be faster, doesn't block other transactions
+Con:
+- allows dirty reads, non-repeatable reads, and phantom reads
+when to use:
+- dno't want to be blocked by other transactions, and don't mind concurrency phenomena
+- explicitly want to watch uncommitted data
