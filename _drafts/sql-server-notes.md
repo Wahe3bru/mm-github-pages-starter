@@ -473,3 +473,25 @@ Con:
 when to use:
 - dno't want to be blocked by other transactions, and don't mind concurrency phenomena
 - explicitly want to watch uncommitted data
+
+`READ COMMITTED`
+- default isolation level
+- cant read data that has not been committed or rollbacked
+- syntax `SET TRANSACTION ISOLATION LEVEL READ COMMITTED`
+- prevents "dirty reads", but doesn't prevent non-repeatable reads and phantom reads
+
+`REPEATABLE READ`
+- can't read uncommitted data from other transactions
+- while reading data other transactions can't modify the data until `REPEATABLE READ` transaction completes.
+- does not prevent phantom reads
+
+`SERIALIZABLE`
+- most restrictibe isolation level
+- prevents dirty, non-repeatable and phantom reads
+- if `SERIALIZABLE READ` is on and index, then only that records are locked.
+- if `SERIALIZABLE READ` is not on index, the whole table is locked.
+
+`SNAPSHOT`
+-`ALTER DATABASE myDatabaseName SET ALLOW_SNAPSHOT_ISOLATION ON` and `ALTER DATABASE myDatabaseName SET READ_COMMITTED_SNAPSHOT ON`
+
+- The `WITH (NOLOCK)`` option behaves like the `READ UNCOMMITTED` isolation level. But whereas the isolation level applies for the entire connection, WITH NOLOCK applies to a specific table.
