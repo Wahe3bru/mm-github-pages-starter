@@ -494,4 +494,32 @@ when to use:
 `SNAPSHOT`
 -`ALTER DATABASE myDatabaseName SET ALLOW_SNAPSHOT_ISOLATION ON` and `ALTER DATABASE myDatabaseName SET READ_COMMITTED_SNAPSHOT ON`
 
-- The `WITH (NOLOCK)`` option behaves like the `READ UNCOMMITTED` isolation level. But whereas the isolation level applies for the entire connection, WITH NOLOCK applies to a specific table.
+- The `WITH (NOLOCK)` option behaves like the `READ UNCOMMITTED` isolation level. But whereas the isolation level applies for the entire connection, WITH NOLOCK applies to a specific table.
+
+---
+### Filtering
+```SQL
+-- returns an error as WHERE executed before SELECT
+SELECT PlayerName,
+    Team,
+    Position,
+    (DRebound+ORebound)/CAST(GamesPlayed AS numeric) AS AvgRebounds
+FROM PlayerStats
+WHERE AvgRebounds >= 12;
+
+-- Solution: subquery
+SELECT PlayerName,
+       Team,
+       Position,
+       AvgRebounds -- Add the new column
+FROM
+     -- Sub-query starts here                             
+	(SELECT
+      PlayerName,
+      Team,
+      Position,
+      -- Calculate average total rebounds
+     (DRebound+ORebound)/CAST(GamesPlayed AS numeric) AS AvgRebounds
+	 FROM PlayerStats) tr
+WHERE AvgRebounds >= 12; -- Filter rows
+```
