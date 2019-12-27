@@ -29,7 +29,6 @@
 - Pack your lunch for the day the night before
 - write down key insight/point from article or podcast
 - foam rolling
-
 - learn about making fermenting foods
 __30 repeats__
 - [ ] Park
