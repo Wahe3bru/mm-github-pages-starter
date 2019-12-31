@@ -523,3 +523,14 @@ FROM
 	 FROM PlayerStats) tr
 WHERE AvgRebounds >= 12; -- Filter rows
 ```
+
+### Presence and Absence
+INTERCEPT
+EXCEPT
+advantages
+disadvantages
+
+(NOT) IN
+(NOT) EXISTS
+advantages
+disadvantages
