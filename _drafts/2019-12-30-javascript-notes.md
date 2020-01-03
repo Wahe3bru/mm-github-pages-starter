@@ -39,4 +39,62 @@ function myFunction(param1, param2){
   //code here
 }
 ```
-if a variable is declared without using `var` - then it is automatically a global variable (even if created in a function). 
+if a variable is declared without using `var` - then it is automatically a global variable (even if created in a function).
+
+equality
+- `==` type coercion therefore `10 == '10'` will be true
+- `===` no type coercion therefore `10 === '10'` will be false
+- `!=` and `!==` would be the counter to the above
+
+`typeof`operator returns the datatype of the object.
+
+Switch statement
+A switch statement tests a value and can have many `case` statements which define various possible values. Statements are executed from the first matched case value until a break is encountered.
+```js
+function switchOfStuff(val) {
+  var answer = "";
+  switch (val) {
+    case "a":
+      answer = "apple";
+      break;
+    case "b":
+      answer = "bird";
+      break;
+    case "c":
+      answer = "cat";
+      break;
+    default:
+      answer = "stuff"
+  }
+  return answer;
+}
+
+switchOfStuff(1);
+```
+
+statements will be executed until a break is encountered, therefore it can be used as:
+```js
+function sequentialSizes(val) {
+  var answer = "";
+  switch (val) {
+    case 1:
+    case 2:
+    case 3:
+      answer = "Low";
+      break;
+    case 4:
+    case 5:
+    case 6:
+      answer = "Mid";
+      break;
+    case 7:
+    case 8:
+    case 9:
+      answer = "High";
+      break;
+  }
+  return answer;
+}
+
+sequentialSizes(1);
+```
