@@ -31,7 +31,10 @@ My current areas of focus are:
 - increased mobility
 
 Using [Chi Running]() and barefoot running information, I can focus on improving my running form.
-A combination of yoga, stretching and foam rolling to increase flexibility. Combined with [MovNat]() to increase mobility.
+A combination of yoga, stretching and foam rolling to increase flexibility.
+Combined with [MovNat]() to increase mobility.
+I plan on doing some [foot specific exercises](https://www.barefoottrainingcentral.com/barefoot-exercises-to-strengthen-your-feet/) to strengthen my feet watching Netflix or as a fun game with the kids.
+
 My diet will no doubtably be changed and nutrition on the whole will be a big learning experience for me - probably the scariest aspect for me as I have a sensitive tummy, which has a large influence on my chronic headaches. So the lessons learned will not need to be repeated.
 
 Having this as the biggest goal for the year will have a rippling effect on my overall health which will aid in my studies and family life as well - more time alone to think means making the time with family more effective.
