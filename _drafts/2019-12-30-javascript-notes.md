@@ -98,3 +98,48 @@ function sequentialSizes(val) {
 
 sequentialSizes(1);
 ```
+
+JavaScript objects
+- similar to python dictionaries.
+- objects can be accessed by dot-notation `myDog.name;` or bracket-notation `myDog["name"];`
+- add a property same way used to modify them `myDog.says = "woof";`
+- remove property `delete myDog.says;`
+- can be used for lookup instead of switch statement:
+```js
+function phoneticLookup(val) {
+  var result = "";
+
+  var lookup = {
+    "alpha": "Adams",
+    "bravo": "Boston",
+    "charlie": "Chicago",
+    "delta": "Denver",
+    "echo": "Easy",
+    "foxtrot": "Frank"
+  };
+  result = lookup[val];
+
+  return result;
+}
+
+phoneticLookup("charlie");
+```
+
+test if object has property
+```js
+var myObj = {
+  gift: "pony",
+  pet: "kitten",
+  bed: "sleigh"
+};
+
+function checkObj(checkProp) {
+  // Your Code Here
+  if (myObj.hasOwnProperty(checkProp)) {
+    return myObj[checkProp];
+  }
+  return "Not Found";
+}
+
+checkObj("gift");
+```
