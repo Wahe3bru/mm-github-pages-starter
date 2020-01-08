@@ -1,6 +1,6 @@
 
 
-
+- balisong tricks
 - daily walk with kids rain or shine
 - fitness challenge
 - no frivolous spending
