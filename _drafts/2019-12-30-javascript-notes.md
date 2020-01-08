@@ -143,3 +143,18 @@ function checkObj(checkProp) {
 
 checkObj("gift");
 ```
+
+Loops
+while
+for
+do...while
+- guarantee loop runs once
+```js
+var myArray = [];
+var i = 10;
+
+do {
+  myArray.push(i);
+  i++;
+} while (i < 5);
+```
