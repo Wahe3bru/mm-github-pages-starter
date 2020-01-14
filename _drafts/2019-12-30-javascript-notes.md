@@ -147,6 +147,11 @@ checkObj("gift");
 Loops
 while
 for
+```js
+for (var i=0; i < myArray.length; i++){
+  console.log(myArray[i]);
+}
+```
 do...while
 - guarantee loop runs once
 ```js
@@ -157,4 +162,25 @@ do {
   myArray.push(i);
   i++;
 } while (i < 5);
+```
+
+parseInt
+converts string into an integer
+`parseInt('10001',2)` - optional second argument is the radix, the base of the number (binary or base two in this example)
+
+ternary operator
+`condition ? statement-if-true : statement-if-false;`
+shorthand for if-else
+```js
+function findGreater(a, b) {
+  return a > b ? "a is greater" : "b is greater";
+}
+```
+can be used for multiple if-else if-else:
+```js
+function checkSign(num) {
+return (num > 0) ? "positive"
+  : (num < 0) ? "negative"
+  : "zero";
+}
 ```
