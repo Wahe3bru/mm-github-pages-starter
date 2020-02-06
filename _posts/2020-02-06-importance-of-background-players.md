@@ -1,5 +1,5 @@
 ---
-title: importanceance of backgroundplayers
+title: importance of background players
 last_modified_at: 2020-02-06T15:17:02-05:00
 categories:
   - blog
