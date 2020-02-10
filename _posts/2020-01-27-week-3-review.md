@@ -10,13 +10,13 @@ header:
   overlay_image: https://source.unsplash.com/collection/9332317/1024x720
 excerpt:
 ---
-Monday: 5km run at 6pm
-Tuesday: mini vasbyt, hill repeats, 24's
-Wednessday: rest day.
-Thursday:
-Friday:
-Saturday: wedding
-Sunday: 6km run, turn to 3km run, 3km walk.
+Monday: 5km run at 6pm<br>
+Tuesday: mini vasbyt, hill repeats, 24's<br>
+Wednessday: rest day.<br>
+Thursday:<br>
+Friday:<br>
+Saturday: wedding<br>
+Sunday: 6km run, turn to 3km run, 3km walk.<br>
 
 Now that school has started and most people are back a work, routines are developing and becoming consistent.
 I will develop a more consistent routine around weekly life.

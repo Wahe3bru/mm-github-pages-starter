@@ -11,13 +11,13 @@ header:
 excerpt:
 ---
 
-Monday:
-Tuesday: no vasbyt, 4km run and some boxing.
-Wednessday: rest day.
-Thursday: run to buy coconut milk, while Ruby cycles
-Friday:
-Saturday: xfit
-Sunday: Swim cancelled
+Monday:<br>
+Tuesday: no vasbyt, 4km run and some boxing.<br>
+Wednessday: rest day.<br>
+Thursday: run to buy coconut milk, while Ruby cycles<br>
+Friday:<br>
+Saturday: xfit<br>
+Sunday: Swim cancelled<br>
 
 This week things are starting to settle down. We are not in our weekly routine yet, but we getting there. Vasbyt has not started yet so we did a short run incorporating some hills.
 I did another 4km run to get into the running swing of things.
@@ -25,4 +25,4 @@ On Saturday I met a vasbyt buddy and he was wanting to improve his swimming tech
 
 For now the swimming will be a meditation on learning and kaizen. simarlily to how I am treating the run training, but a bit more relaxed.
 
-I can begin ramping up my work related studying as I consolidate my daily routine. 
+I can begin ramping up my work related studying as I consolidate my daily routine.

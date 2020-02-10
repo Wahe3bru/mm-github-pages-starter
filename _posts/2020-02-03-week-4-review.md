@@ -10,13 +10,13 @@ header:
   overlay_image: https://source.unsplash.com/collection/9332317/1024x720
 excerpt:
 ---
-Monday: 5km run at 6pm
-Tuesday: vasbyt, 24's and abit of xfit
-Wednesday: rest day.
-Thursday:
-Friday:
-Saturday: MAF test, 1.14km barefoot run, and IVMT
-Sunday: 6.84km long run.
+Monday: 5km run at 6pm<br>
+Tuesday: vasbyt, 24's and abit of xfit<br>
+Wednesday: rest day.<br>
+Thursday:<br>
+Friday:<br>
+Saturday: MAF test, 1.14km barefoot run, and IVMT<br>
+Sunday: 6.84km long run.<br>
 
 This week running has really taken off!
 I did my [first MAF test](), and finally completed my first long run.
