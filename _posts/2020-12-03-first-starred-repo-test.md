@@ -1,6 +1,6 @@
 ---
 title: First Starred Repo test
-last_modified_at: 2020-03-03T15:17:02-05:00
+last_modified_at: 2020-03-03 15:17:02 05:00
 categories:
   - blog
   - thoughts
